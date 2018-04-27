@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-navbar color='primary'>
+    <ion-title>
+      Contact
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <h3 *ngIf="true" text-center>Add Your Details</h3>
+  <h3 *ngIf="false" text-center>Edit Your Details</h3>
+  <ion-grid>
+      <ion-row>
+          <ion-col></ion-col>
+          <ion-col> </ion-col>
+          <ion-col>
+            <button ion-button icon-end (click)="openProfileModal()" float-right style="padding-right:20px;">
+              Edit
+              <ion-icon name="create"></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+  </ion-grid>
+  
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+
+      <ion-item>
+        <ion-input type="text" placeholder="Name" formControlName="name"></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-input type="text" placeholder="Area" formControlName="area"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-input type="text" placeholder="Email" formControlName="email"></ion-input>
+      </ion-item>
+    
+      <ion-item>
+        <ion-input type="text" placeholder="Phone Number" formControlName="phone"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <button ion-button color="secondary" full large>Submit</button>
+      </ion-item>
+
+
+
+      
+
+
+    
+    </ion-list>
+  </form>
+</ion-content>

@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>
+      Disconnected Page
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+<ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
+
+
+
+<ion-content padding>
+
+    <!-- <ion-item-group>
+      <ion-item-divider color="light">Favorite Restaurants</ion-item-divider>
+      <ion-item *ngFor="let item of cachedRestaurants">
+        <io-card-header>{{item.name}}</ion-card-header> 
+        <p>{{item.description}}</p>
+      </ion-item>
+    </ion-item-group> -->
+
+    <ion-card  *ngFor="let item of cachedRestaurants">
+
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="">
+          </ion-avatar>
+          <h2>{{item.name}}</h2>
+          <p>November 5, 1955</p>
+        </ion-item>
+      
+        <!-- <img src="./assets/imgs/logo.png"> -->
+        <img src="">
+      
+        <ion-card-content>
+          <p>{{item.description}}</p>
+        </ion-card-content>
+      
+        <ion-row>
+          <ion-col>
+            <button ion-button icon-left clear small>
+              <ion-icon name="thumbs-up"></ion-icon>
+              <div>12 Likes</div>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button icon-left clear small>
+              <ion-icon name="text"></ion-icon>
+              <div>4 Comments</div>
+            </button>
+          </ion-col>
+          <ion-col center text-center>
+            <ion-note>
+              11h ago
+            </ion-note>
+          </ion-col>
+        </ion-row>
+      
+      </ion-card>
+
+</ion-content>
