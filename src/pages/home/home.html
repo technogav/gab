@@ -1,11 +1,89 @@
 <ion-header>
-  <ion-navbar color="primary" (click)="openModal()">
+  <ion-navbar color="primary">
     <ion-title>
-      Google Places
+      <button ion-button end >GG</button>
     </ion-title>
-  </ion-navbar>
+  </ion-navbar >
+  <ion-toolbar>
+    
+      <span float-left style="background:#ccc; padding:5px; width:12%; padding:4px; height:32px;">
+          <ion-icon name="search" style="margin-top:4px;margin-left:7px;"></ion-icon>
+      </span>
+
+      
+      
+      <!-- <button float-right ion-button color="primary">
+          <ion-icon name="search"></ion-icon>
+      </button> -->
+      
+      <input float-left placeholder="search" autocorrect="off" autocapitalize="off" 
+      spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl"
+      style='border:none; width:50%; height: 28px;padding-left:15px; height:32px' />
+
+      <span float-right style=" padding:0px; padding-bottom: 5px;margin: 5px;width: 26%; max-width:50px;height:32px;">
+          <button ion-button style="width:100%; height:100%; margin:0px;margin-top:-5px; "><ion-icon name="funnel"></ion-icon></button>
+            
+        </span>
+    
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div #map id="map"></div>
+  <!-- <div #map id="map"></div> -->
+  <agm-map 
+    [latitude]="lat3" 
+    [longitude]="long3" id="map" 
+    [zoom]="15" 
+    zoomControl="false" 
+    (mapClick)="showMapClick($event)"
+    [styles]="styles"
+    [streetViewControl]="true">
+
+    <agm-marker 
+      [latitude]="lat3" 
+      [longitude]="long3" 
+      [iconUrl]="icon" 
+      >
+    </agm-marker>
+    <agm-marker 
+      *ngFor="let item of rests; let i = index" 
+      [latitude]="item.lat" 
+      [longitude]="item.long">
+    
+      <!-- <agm-info-window>
+        <h3>{{item.desc}}</h3>
+        <button ion-button small color="primary" (click)="openModal()">Show</button>
+      </agm-info-window>  -->
+
+      <agm-snazzy-info-window  
+      *ngFor="let item of rests" 
+      [isOpen] = "infoWindowOpen"
+      backgroundColor="lightgrey" 
+      padding="0px"
+      maxWidth = "200px;"
+      >
+        <ng-template>
+          <ion-grid>
+            <ion-row>
+              <ion-col col-12>
+                <div style="background:grey; width:100%; height: 80px;"></div>
+                <h5>10% of any evening meal!</h5>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col col-6>
+                    2/10 left<br>Book Now!
+                  </ion-col>
+              <ion-col col-6>
+                <button ion-button item-end float-right small color="primary" (click)="openModal(item)">Details</button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+          
+        </ng-template>
+      </agm-snazzy-info-window>
+    
+  
+    </agm-marker>
+  </agm-map>
 </ion-content>

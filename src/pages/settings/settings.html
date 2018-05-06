@@ -4,6 +4,8 @@
       Settings
     </ion-title>
   </ion-navbar>
+  
+  
 </ion-header>
 
 <ion-content>
@@ -15,20 +17,21 @@
   </ion-item>
 
   <ion-item>
-    <ion-label> Option 1</ion-label>
+    <ion-label>Push Notifications</ion-label>
     <ion-toggle checked="true"></ion-toggle>
   </ion-item>
   <ion-item>
-    <ion-label> Option</ion-label>
+    <ion-label>SMS</ion-label>
     <ion-toggle checked="true"></ion-toggle>
   </ion-item>
+  
+  
   <ion-item>
-    <ion-label> Option</ion-label>
-    <ion-toggle checked="false"></ion-toggle>
-  </ion-item>
-  <ion-item>
-    <ion-label> Option</ion-label>
-    <ion-toggle checked="true"></ion-toggle>
-  </ion-item>
+      <ion-label>zoom level</ion-label>
+        <ion-range min="1" max="15" [(ngModel)]="saturation" color="secondary">
+          <ion-label range-left><ion-icon name="remove"></ion-icon></ion-label>
+          <ion-label range-right><ion-icon name="add"></ion-icon></ion-label>
+        </ion-range>
+    </ion-item>
   
 </ion-content>

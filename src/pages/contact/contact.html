@@ -7,11 +7,16 @@
 </ion-header>
 
 <ion-content>
-  <h3 *ngIf="true" text-center>Add Your Details</h3>
+  <h3 *ngIf="true" text-center>Profile</h3>
   <h3 *ngIf="false" text-center>Edit Your Details</h3>
   <ion-grid>
       <ion-row>
-          <ion-col></ion-col>
+          <ion-col><ion-fab right left>
+              <button ion-fab>
+                <!-- <ion-icon name="pin"></ion-icon> -->
+                <img src="./assets/imgs/logo.png" alt="">
+              </button>
+            </ion-fab></ion-col>
           <ion-col> </ion-col>
           <ion-col>
             <button ion-button icon-end (click)="openProfileModal()" float-right style="padding-right:20px;">
@@ -22,6 +27,7 @@
         </ion-row>
   </ion-grid>
   
+  <div style="margin-top:30px;"></div>
   <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
     <ion-list>
 
@@ -41,9 +47,17 @@
         <ion-input type="text" placeholder="Phone Number" formControlName="phone"></ion-input>
       </ion-item>
 
-      <ion-item>
-        <button ion-button color="secondary" full large>Submit</button>
-      </ion-item>
+      <ion-footer no-border>
+
+          <ion-toolbar>
+              
+                  <button ion-button color="secondary" full large>Submit</button>
+               
+          </ion-toolbar>
+        
+        </ion-footer>
+
+      
 
 
 

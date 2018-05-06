@@ -6,15 +6,45 @@
 -->
 <ion-header>
 
-  <ion-navbar (click)="dismiss()">
-    <ion-title>restModal</ion-title>
+  <ion-navbar (click)="dismiss()" color="primary">
+    <ion-title>
+      <ion-icon name="back"></ion-icon>
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
+
 <ion-content padding>
 
-<button ion-button color="primary" (click)="reserve()">Book Now</button>
+  <!-- <img src="img/advance-card-map-madison.png"> -->
+  <h3>Bimbo's Bitchin Burretos</h3>
+  <div style="width:100%; height:160px; background:lightgrey"></div>
+  <button ion-button color="primary" full (click)="showAlert()">Menu</button>
+
+  
+  <h4>Buy one get one free!</h4>
+  <p>Buy any burreto and etthe second on us.</p>
+  
+
+  <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+  
+      <ion-item>
+        <ion-label>Date</ion-label>
+        <ion-datetime displayFormat="MMM/DD/YYYY" formControlName="date"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label>Time</ion-label>
+        <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm"formControlName="time"></ion-datetime>
+      </ion-item>
+    </ion-list>
+  
+
+    
+
+    <button ion-button color="primary" full (click)="reserve()" type="submit">Book Now</button>
+  </form>
 
 </ion-content>

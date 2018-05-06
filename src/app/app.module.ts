@@ -23,6 +23,15 @@ import { GeoServiceProvider } from '../providers/geo-service/geo-service';
 import { RestModalPage } from '../pages/rest-modal/rest-modal';
 import { BookingModalPage } from '../pages/booking-modal/booking-modal';
 
+import { AgmCoreModule } from '@agm/core'
+import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
+
+import { ReservationsArchivedPage } from '../pages/reservations-archived/reservations-archived';
+
+import { Geolocation } from '@ionic-native/geolocation';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
+
 
 
 @NgModule({
@@ -36,11 +45,22 @@ import { BookingModalPage } from '../pages/booking-modal/booking-modal';
     HomePage,
     RestModalPage,
     BookingModalPage,
+    //ReservationsArchivedPage,
     TabsPage
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
+
+    AgmCoreModule.forRoot({
+      apiKey:'AIzaSyD9WttyqFcI5wTLvoL16i1Kri_Vzg7kINE',
+      libraries: ["places"]
+      
+    }),
+    AgmSnazzyInfoWindowModule,
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features
@@ -56,14 +76,19 @@ import { BookingModalPage } from '../pages/booking-modal/booking-modal';
     HomePage,
     RestModalPage,
     BookingModalPage,
-    TabsPage
+    //ReservationsArchivedPage,
+    TabsPage,
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserServiceProvider,
-    GeoServiceProvider
-  ]
+    GeoServiceProvider,
+    Geolocation,
+    
+  ],
+
+  
 })
 export class AppModule {}

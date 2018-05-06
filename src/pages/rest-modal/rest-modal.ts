@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController } from 'ionic-angular';
 import { BookingModalPage } from '../booking-modal/booking-modal';
+import { FormControl, FormGroup } from '@angular/forms';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
 
 /**
  * Generated class for the RestModalPage page.
@@ -16,24 +18,63 @@ import { BookingModalPage } from '../booking-modal/booking-modal';
 })
 export class RestModalPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, 
-    public modalCtrl:ModalController, public viewCtrl:ViewController) {
+  reservationForm = new FormGroup({
+    'date': new FormControl(),
+    'time': new FormControl()
+  });
+
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public modalCtrl:ModalController, 
+    public viewCtrl:ViewController,
+    public alertCtrl : AlertController,
+    public userService: UserServiceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RestModalPage');
   }
 
-  dismiss() {
+  dismiss(bool) {
     //let data = { 'foo': 'bar' };
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss(bool);
   }
+
+  public showAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Coming Soon',
+      subTitle: "This feature is not available yet",
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+
+  onSubmit(){
+
+    console.log("here");
+
+    this.userService.reservation(this.reservationForm.value);
+  }
+
 
   reserve() {
-    console.log("helloo")
 
-    let modal = this.modalCtrl.create(BookingModalPage);
+    let modal = this.modalCtrl.create(BookingModalPage,{
+      'date' : this.reservationForm.value.date,
+      'time' : this.reservationForm.value.time
+    });
+
+    modal.onDidDismiss(data => {
+      console.log("here", data);
+      data?  this.dismiss(data) : console.log('onDidDismiss sent',  data);
+    });
+ 
     modal.present();
+
+
   }
+
+  
 
 }

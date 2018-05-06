@@ -23,4 +23,8 @@ export class UserServiceProvider {
     console.log("service", data);
   }
 
+  reservation(data){
+    console.log("service", data);
+  }
+
 }

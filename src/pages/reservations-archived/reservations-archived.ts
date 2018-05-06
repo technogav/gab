@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, AlertController } from 'ionic-angular';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
-//import { ReservationsArchivedPage } from '../../pages/reservations-archived/reservations-archived'
+
 
 @Component({
   selector: 'page-reservations',
@@ -10,7 +10,7 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 })
 
 
-export class ReservationsPage {
+export class ReservationsArchivedPage {
 
 
   userForm = new FormGroup({
@@ -22,6 +22,7 @@ export class ReservationsPage {
 
   });
 
+  
   constructor(
     public navCtrl: NavController,
     private userService : UserServiceProvider,
