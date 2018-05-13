@@ -1,14 +1,20 @@
 <ion-header>
-  <ion-navbar color="primary">
-    <ion-title>
-      <button ion-button end >GG</button>
-    </ion-title>
-  </ion-navbar >
-  <ion-toolbar>
+  <ion-navbar color='primary'>
+    <ion-buttons>
+      <button  float-left ion-button icon-only menuToggle>
+        <ion-icon name="menu"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  
+  
+<ion-toolbar>
     
       <span float-left style="background:#ccc; padding:5px; width:12%; padding:4px; height:32px;">
           <ion-icon name="search" style="margin-top:4px;margin-left:7px;"></ion-icon>
       </span>
+
+      
 
       
       
@@ -16,14 +22,30 @@
           <ion-icon name="search"></ion-icon>
       </button> -->
       
-      <input float-left placeholder="search" autocorrect="off" autocapitalize="off" 
-      spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl"
-      style='border:none; width:50%; height: 28px;padding-left:15px; height:32px' />
+      <input 
+        float-left placeholder="search" 
+        autocorrect="off" 
+        autocapitalize="off" 
+        spellcheck="off" 
+        type="text" 
+        class="form-control" 
+        #search
+        value="" 
+        [formControl]="searchControl"
+        style='border:none; width:56%; height: 28px;padding-left:15px; height:32px' />
 
-      <span float-right style=" padding:0px; padding-bottom: 5px;margin: 5px;width: 26%; max-width:50px;height:32px;">
-          <button ion-button style="width:100%; height:100%; margin:0px;margin-top:-5px; "><ion-icon name="funnel"></ion-icon></button>
-            
-        </span>
+      <span float-right style=" padding:0px; padding-bottom: 5px;margin: 5px;margin-left:2px; margin-right:2px;width: 10%; max-width:50px;height:32px;">
+        <button (click)="openFilterModal()" ion-button style="width:100%; margin-left:2px; 
+        margin-right:2px; height:100%; margin:0px;margin-top:-5px; ">
+        <ion-icon name="funnel"></ion-icon></button>  
+      </span>
+
+      <span float-right style=" padding:0px; padding-bottom: 
+      5px;margin: 5px;margin-left:2px; margin-right:2px;width: 10%; max-width:50px;height:32px;">
+        <button (click)="getCurrentPosition(search)"ion-button style="width:100%; margin-left:2px; 
+        margin-right:2px; height:100%; margin:0px;margin-top:-5px; ">
+        <ion-icon name="pin"></ion-icon></button>  
+      </span>
     
   </ion-toolbar>
 </ion-header>
@@ -33,11 +55,12 @@
   <agm-map 
     [latitude]="lat3" 
     [longitude]="long3" id="map" 
-    [zoom]="15" 
+    [zoom]="12" 
     zoomControl="false" 
     (mapClick)="showMapClick($event)"
     [styles]="styles"
-    [streetViewControl]="true">
+    [streetViewControl]="false"
+    [zoomControl]="false">
 
     <agm-marker 
       [latitude]="lat3" 
@@ -57,25 +80,33 @@
 
       <agm-snazzy-info-window  
       *ngFor="let item of rests" 
-      [isOpen] = "infoWindowOpen"
-      backgroundColor="lightgrey" 
-      padding="0px"
-      maxWidth = "200px;"
+        [isOpen] = "false"
+        [showCloseButton] = "false"
+        [maxWidth] = "340"
+        [backgroundColor]="red"
+        [content] = "template({title: 'Complex Styles'})"
+        
+        padding="0px"
+        width="300px"
+        
       >
         <ng-template>
           <ion-grid>
-            <ion-row>
+            <ion-row style="width:220px">
               <ion-col col-12>
                 <div style="background:grey; width:100%; height: 80px;"></div>
-                <h5>10% of any evening meal!</h5>
+                <div text-center class="info-name">Simons Slosh</div> 
               </ion-col>
             </ion-row>
-            <ion-row>
-                <ion-col col-6>
-                    2/10 left<br>Book Now!
-                  </ion-col>
-              <ion-col col-6>
-                <button ion-button item-end float-right small color="primary" (click)="openModal(item)">Details</button>
+            <ion-row style="width:220px">
+              <div class="info-text">
+                Early Bird Dinner & Starter for only $10.99
+              </div>
+            </ion-row>
+                  <ion-row>
+              <ion-col col-12>
+                <button ion-button item-end float-right small full color="primary" 
+                (click)="openModal(item)">Details</button>
               </ion-col>
             </ion-row>
           </ion-grid>

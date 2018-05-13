@@ -7,4 +7,28 @@ page-home {
       padding:0;
       margin:0;
     }
-  }
+
+    .info-window{
+      height: 800px;
+      background:red;
+
+
+    }
+
+    /* 
+    */
+
+    .info-name{
+      font-family: 'Fjalla One', sans-serif;
+      font-size: 1.1em;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .info-text{
+      font-family: 'Cantarell', sans-serif;
+      font-size: .8em;
+      color: #333;
+    }
+  } 

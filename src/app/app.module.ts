@@ -21,9 +21,13 @@ import { environment } from './fbCredentials';
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { GeoServiceProvider } from '../providers/geo-service/geo-service';
 import { RestModalPage } from '../pages/rest-modal/rest-modal';
+import { FilterModalPage } from '../pages/filter-modal/filter-modal';
 import { BookingModalPage } from '../pages/booking-modal/booking-modal';
+import { LoginPage } from '../pages/login/login';
+import { LoginModalPage } from '../pages/login-modal/login-modal';
 
-import { AgmCoreModule } from '@agm/core'
+
+import { AgmCoreModule } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 
 import { ReservationsArchivedPage } from '../pages/reservations-archived/reservations-archived';
@@ -46,7 +50,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     RestModalPage,
     BookingModalPage,
     //ReservationsArchivedPage,
-    TabsPage
+    FilterModalPage,
+    TabsPage,
+    LoginPage,
+    LoginModalPage
   ],
   imports: [
     BrowserModule,
@@ -76,8 +83,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     HomePage,
     RestModalPage,
     BookingModalPage,
+    FilterModalPage,
     //ReservationsArchivedPage,
     TabsPage,
+    LoginPage,
+    LoginModalPage
   ],
   providers: [
     StatusBar,

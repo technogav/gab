@@ -9,6 +9,8 @@ import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { Geolocation } from '@ionic-native/geolocation';
 import { GeoServiceProvider } from '../../providers/geo-service/geo-service';
+import { FilterModalPage } from '../filter-modal/filter-modal';
+import { LoginModalPage } from '../login-modal/login-modal';//if click rest details & logged out show modal
 
 export class AppComponent {
   title: string = 'My first AGM project';
@@ -42,296 +44,239 @@ export class HomePage {
   };
   public styles = [
     {
-      "elementType": "geometry",
-      "stylers": [
-        {
-          "color": "#1d2c4d"
-        }
-      ]
+        "featureType": "administrative.locality",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#c79c60"
+            },
+            {
+                "saturation": 7
+            },
+            {
+                "lightness": 19
+            },
+            {
+                "visibility": "on"
+            }
+        ]
     },
     {
-      "elementType": "labels.text.fill",
-      "stylers": [
-        {
-          "color": "#8ec3b9"
-        }
-      ]
+        "featureType": "administrative.locality",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "visibility": "off"
+            },
+            {
+                "hue": "#ff0000"
+            },
+            {
+                "saturation": "18"
+            }
+        ]
     },
     {
-      "elementType": "labels.text.stroke",
-      "stylers": [
-        {
-          "color": "#1a3646"
-        }
-      ]
+        "featureType": "administrative.locality",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+                "hue": "#ff0000"
+            }
+        ]
     },
     {
-      "featureType": "administrative.country",
-      "elementType": "geometry.stroke",
-      "stylers": [
-        {
-          "color": "#4b6878"
-        }
-      ]
+        "featureType": "landscape",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#ffffff"
+            },
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 100
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
     },
     {
-      "featureType": "administrative.land_parcel",
-      "elementType": "labels",
-      "stylers": [
-        {
-          "visibility": "off"
-        }
-      ]
+        "featureType": "poi",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#ffffff"
+            },
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 100
+            },
+            {
+                "visibility": "off"
+            }
+        ]
     },
     {
-      "featureType": "administrative.land_parcel",
-      "elementType": "labels.text.fill",
-      "stylers": [
-        {
-          "color": "#64779e"
-        }
-      ]
+        "featureType": "poi.park",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "visibility": "on"
+            },
+            {
+                "saturation": "30"
+            },
+            {
+                "hue": "#00ff07"
+            },
+            {
+                "lightness": "-13"
+            },
+            {
+                "gamma": "1.22"
+            },
+            {
+                "weight": "1.00"
+            }
+        ]
     },
     {
-      "featureType": "administrative.province",
-      "elementType": "geometry.stroke",
-      "stylers": [
-        {
-          "color": "#4b6878"
-        }
-      ]
+        "featureType": "road",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "hue": "#c79c60"
+            },
+            {
+                "saturation": -52
+            },
+            {
+                "lightness": -10
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
     },
     {
-      "featureType": "landscape.man_made",
-      "elementType": "geometry.stroke",
-      "stylers": [
-        {
-          "color": "#334e87"
-        }
-      ]
+        "featureType": "road",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "hue": "#c79c60"
+            },
+            {
+                "saturation": -93
+            },
+            {
+                "lightness": 31
+            },
+            {
+                "visibility": "on"
+            }
+        ]
     },
     {
-      "featureType": "landscape.natural",
-      "elementType": "geometry",
-      "stylers": [
-        {
-          "color": "#023e58"
-        }
-      ]
+        "featureType": "road.arterial",
+        "elementType": "labels",
+        "stylers": [
+            {
+                "hue": "#c79c60"
+            },
+            {
+                "saturation": -93
+            },
+            {
+                "lightness": -2
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
     },
     {
-      "featureType": "poi",
-      "elementType": "geometry",
-      "stylers": [
-        {
-          "color": "#283d6a"
-        }
-      ]
+        "featureType": "road.local",
+        "elementType": "geometry",
+        "stylers": [
+            {
+                "hue": "#c79c60"
+            },
+            {
+                "saturation": -52
+            },
+            {
+                "lightness": -10
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
     },
     {
-      "featureType": "poi",
-      "elementType": "labels.text",
-      "stylers": [
-        {
-          "visibility": "off"
-        }
-      ]
+        "featureType": "transit",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#c79c60"
+            },
+            {
+                "saturation": 10
+            },
+            {
+                "lightness": 69
+            },
+            {
+                "visibility": "on"
+            }
+        ]
     },
     {
-      "featureType": "poi",
-      "elementType": "labels.text.fill",
-      "stylers": [
-        {
-          "color": "#6f9ba5"
-        }
-      ]
+        "featureType": "water",
+        "elementType": "all",
+        "stylers": [
+            {
+                "hue": "#c79c60"
+            },
+            {
+                "saturation": -78
+            },
+            {
+                "lightness": 67
+            },
+            {
+                "visibility": "simplified"
+            }
+        ]
     },
     {
-      "featureType": "poi",
-      "elementType": "labels.text.stroke",
-      "stylers": [
-        {
-          "color": "#1d2c4d"
-        }
-      ]
-    },
-    {
-      "featureType": "poi.business",
-      "stylers": [
-        {
-          "visibility": "off"
-        }
-      ]
-    },
-    {
-      "featureType": "poi.park",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "color": "#023e58"
-        }
-      ]
-    },
-    {
-      "featureType": "poi.park",
-      "elementType": "labels.text.fill",
-      "stylers": [
-        {
-          "color": "#3C7680"
-        }
-      ]
-    },
-    {
-      "featureType": "road",
-      "elementType": "geometry",
-      "stylers": [
-        {
-          "color": "#304a7d"
-        }
-      ]
-    },
-    {
-      "featureType": "road",
-      "elementType": "labels.icon",
-      "stylers": [
-        {
-          "visibility": "off"
-        }
-      ]
-    },
-    {
-      "featureType": "road",
-      "elementType": "labels.text.fill",
-      "stylers": [
-        {
-          "color": "#98a5be"
-        }
-      ]
-    },
-    {
-      "featureType": "road",
-      "elementType": "labels.text.stroke",
-      "stylers": [
-        {
-          "color": "#1d2c4d"
-        }
-      ]
-    },
-    {
-      "featureType": "road.highway",
-      "elementType": "geometry",
-      "stylers": [
-        {
-          "color": "#2c6675"
-        }
-      ]
-    },
-    {
-      "featureType": "road.highway",
-      "elementType": "geometry.stroke",
-      "stylers": [
-        {
-          "color": "#255763"
-        }
-      ]
-    },
-    {
-      "featureType": "road.highway",
-      "elementType": "labels.text.fill",
-      "stylers": [
-        {
-          "color": "#b0d5ce"
-        }
-      ]
-    },
-    {
-      "featureType": "road.highway",
-      "elementType": "labels.text.stroke",
-      "stylers": [
-        {
-          "color": "#023e58"
-        }
-      ]
-    },
-    {
-      "featureType": "road.local",
-      "elementType": "labels",
-      "stylers": [
-        {
-          "visibility": "off"
-        }
-      ]
-    },
-    {
-      "featureType": "transit",
-      "stylers": [
-        {
-          "visibility": "off"
-        }
-      ]
-    },
-    {
-      "featureType": "transit",
-      "elementType": "labels.text.fill",
-      "stylers": [
-        {
-          "color": "#98a5be"
-        }
-      ]
-    },
-    {
-      "featureType": "transit",
-      "elementType": "labels.text.stroke",
-      "stylers": [
-        {
-          "color": "#1d2c4d"
-        }
-      ]
-    },
-    {
-      "featureType": "transit.line",
-      "elementType": "geometry.fill",
-      "stylers": [
-        {
-          "color": "#283d6a"
-        }
-      ]
-    },
-    {
-      "featureType": "transit.station",
-      "elementType": "geometry",
-      "stylers": [
-        {
-          "color": "#3a4762"
-        }
-      ]
-    },
-    {
-      "featureType": "water",
-      "elementType": "geometry",
-      "stylers": [
-        {
-          "color": "#0e1626"
-        }
-      ]
-    },
-    {
-      "featureType": "water",
-      "elementType": "labels.text.fill",
-      "stylers": [
-        {
-          "color": "#4e6d70"
-        }
-      ]
+        "featureType": "water",
+        "elementType": "geometry.fill",
+        "stylers": [
+            {
+                "hue": "#0055ff"
+            },
+            {
+                "gamma": "2.85"
+            },
+            {
+                "saturation": "50"
+            },
+            {
+                "lightness": "-6"
+            }
+        ]
     }
-  ];
-  
-  
-  
-  
+];
 
-
-  constructor(
+constructor(
     public agm:AgmCoreModule,
     public alertCtrl: AlertController,
     public modalCtrl: ModalController,
@@ -366,18 +311,14 @@ export class HomePage {
       }); */
 
 
-  }
+  }//end constructor
 
   ngOnInit() {
     //set google maps defaults
     this.zoom = 4;
-   
-    
     //create search FormControl
     this.searchControl = new FormControl();
-    
-    
-    
+     
     //load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
       let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
@@ -402,16 +343,62 @@ export class HomePage {
     });
   }
 
+  //get map coords
   showMapClick(ev){
     console.log(ev);
+  }
+
+  public openLoginModal(){
+      console.log("here");
+    let modal = this.modalCtrl.create(LoginModalPage );
+
+    /* modal.onDidDismiss(data => {
+      //console.log("close info window?");
+      this.infoWindowOpen = !this.infoWindowOpen
+      
+    }); */
+
+    modal.present();
+  }
+
+  public getCurrentPosition(search){
+ console.log(search);
+
+ search.value="";
+ 
+ console.log(this.searchControl.value);
+    this.geolocation.getCurrentPosition().then((resp) => {
+        // resp.coords.latitude
+        // resp.coords.longitude
+        this.lat3 = resp.coords.latitude;
+        this.long3 = resp.coords.longitude;
+       }).catch((error) => {
+         console.log('Error getting location', error);
+       });
+  }
+
+  openFilterModal() {
+
+    
+    let modal = this.modalCtrl.create(FilterModalPage );
+
+    /* modal.onDidDismiss(data => {
+      //console.log("close info window?");
+      this.infoWindowOpen = !this.infoWindowOpen
+      
+    }); */
+
+    modal.present();
   }
 
   
 
   openModal() {
 
+    this.openLoginModal();
+
     
-    let modal = this.modalCtrl.create(RestModalPage );
+    /* let modal = this.modalCtrl.create(RestModalPage );
 
     modal.onDidDismiss(data => {
       //console.log("close info window?");
@@ -419,7 +406,7 @@ export class HomePage {
       
     });
 
-    modal.present();
+    modal.present(); */
   }
 
   
