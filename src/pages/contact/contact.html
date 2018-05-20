@@ -13,12 +13,14 @@
       <ion-row>
           <ion-col col-3>
             
-              <button *ngIf="editSave" (click)="toggleEditMode()" ion-button clear outline>Edit</button>
-              <button *ngIf="!editSave" (click)="toggleEditMode()" ion-button clear outline>Save</button>
+              <button *ngIf="editSave" (click)="toggleEditMode()" ion-button style="min-width: 40px"color="primary" outline>Edit</button>
+              <button *ngIf="!editSave" (click)="toggleEditMode()" ion-button style="min-width: 40px"color="secondary" outline>Save</button>
+              <button *ngIf="!editSave" (click)="toggleEditMode()" ion-button style="min-width: 40px"color="secondary" outline>Upload photo</button>
               
           </ion-col>
           <ion-col col-5> </ion-col>
           <ion-col col-4 class="profile-pic-container"> 
+            <img src="/assets/imgs/joker.jpg" alt="">
             
           </ion-col>
 
@@ -33,22 +35,22 @@
               
               <ion-item>
                   <ion-label floating for="name" >Name</ion-label>
-                <ion-input type="text" formControlName="name" [disabled]="!edit"></ion-input>
+                <ion-input type="text" formControlName="name"></ion-input>
               </ion-item>
             
               <ion-item>
                   <ion-label floating for="area">Area</ion-label>
-                <ion-input type="text" formControlName="area" [disabled]="!edit"></ion-input>
+                <ion-input type="text" formControlName="area"></ion-input>
               </ion-item>
         
               <ion-item>
                   <ion-label floating for="email" >Email</ion-label>
-                <ion-input type="text" formControlName="email" [disabled]="!edit"></ion-input>
+                <ion-input type="text" formControlName="email" ></ion-input>
               </ion-item>
             
               <ion-item>
                   <ion-label floating for="phone" >Phone Number</ion-label>
-                <ion-input type="text" formControlName="phone" [disabled]="!edit"></ion-input>
+                <ion-input type="text" formControlName="phone"></ion-input>
               </ion-item>
 </form>
           

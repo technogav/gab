@@ -15,8 +15,20 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class UserServiceProvider {
 
+  private user;
+
   constructor(/* public http: HttpClient */) {
     console.log('Hello UserServiceProvider Provider');
+  }
+
+  getUser(){
+    return [{
+      name: 'Gavin',
+      areaName : 'Kilcullen',
+      email : 'gavin_murphy1981@yahoo.ie',
+      phone: '087 736 8998'
+    }]
+    //return true;
   }
 
   saveUser(data){
