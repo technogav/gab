@@ -11,15 +11,12 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 
 
 export class ReservationsPage {
-
-
+  
   userForm = new FormGroup({
     'name': new FormControl(),
     'email': new FormControl(),
     'phone' : new FormControl(),
     'area' : new FormControl()
-    
-
   });
 
   constructor(
@@ -49,15 +46,19 @@ export class ReservationsPage {
         buttons: ['OK']
       });
       alert.present();
-    }
-    
-    
+    }  
   }
 
-
-  
-  onSubmit(){
-
+  public ratePlace(){
+    let alert = this.alertCtrl.create({
+      title: 'Offline!',
+      subTitle: "Rating Feature coming soon. (to help with AI suggestions)",
+      buttons: ['OK']
+    });
+    alert.present();
+  }
+ 
+  public onSubmit(){
     this.userService.saveUser(this.userForm.value);
   }
 

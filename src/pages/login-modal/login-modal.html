@@ -6,8 +6,12 @@
 -->
 <ion-header>
 
-  <ion-navbar color="primary">
-    <ion-title>login-modal</ion-title>
+  <ion-navbar (click)="dismiss()" color="primary">
+    <ion-title>
+      
+      <ion-icon start  float-left name="arrow-round-back"></ion-icon>
+      <span>Login</span>
+    </ion-title>
   </ion-navbar>
 
 </ion-header>

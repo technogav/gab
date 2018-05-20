@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { BookingModalPage } from '../booking-modal/booking-modal';
@@ -30,6 +30,7 @@ export class LoginModalPage {
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
+    public viewCtrl:ViewController,
     private userService : UserServiceProvider,
     public modalCtrl : ModalController) {
   }
@@ -55,6 +56,11 @@ export class LoginModalPage {
     modal.present();
 
 
+  }
+
+  dismiss(bool) {
+    //let data = { 'foo': 'bar' };
+    this.viewCtrl.dismiss(bool);
   }
 
 }

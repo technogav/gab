@@ -11,60 +11,48 @@
   <h3 *ngIf="false" text-center>Edit Your Details</h3>
   <ion-grid>
       <ion-row>
-          <ion-col><ion-fab right left>
-              <button ion-fab>
-                <!-- <ion-icon name="pin"></ion-icon> -->
-                <img src="./assets/imgs/logo.png" alt="">
-              </button>
-            </ion-fab></ion-col>
-          <ion-col> </ion-col>
-          <ion-col>
-            <button ion-button icon-end (click)="openProfileModal()" float-right style="padding-right:20px;">
-              Edit
-              <ion-icon name="create"></ion-icon>
-            </button>
+          <ion-col col-3>
+            
+              <button *ngIf="editSave" (click)="toggleEditMode()" ion-button clear outline>Edit</button>
+              <button *ngIf="!editSave" (click)="toggleEditMode()" ion-button clear outline>Save</button>
+              
           </ion-col>
+          <ion-col col-5> </ion-col>
+          <ion-col col-4 class="profile-pic-container"> 
+            
+          </ion-col>
+
         </ion-row>
   </ion-grid>
   
-  <div style="margin-top:30px;"></div>
-  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-    <ion-list>
-
-      <ion-item>
-        <ion-input type="text" placeholder="Name" formControlName="name"></ion-input>
-      </ion-item>
+  <div style="margin-top:10px;"></div>
+  <ion-list>
     
-      <ion-item>
-        <ion-input type="text" placeholder="Area" formControlName="area"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-input type="text" placeholder="Email" formControlName="email"></ion-input>
-      </ion-item>
-    
-      <ion-item>
-        <ion-input type="text" placeholder="Phone Number" formControlName="phone"></ion-input>
-      </ion-item>
-
-      <ion-footer no-border>
-
-          <ion-toolbar>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            
               
-                  <button ion-button color="secondary" full large>Submit</button>
-               
-          </ion-toolbar>
+              <ion-item>
+                  <ion-label floating for="name" >Name</ion-label>
+                <ion-input type="text" formControlName="name" [disabled]="!edit"></ion-input>
+              </ion-item>
+            
+              <ion-item>
+                  <ion-label floating for="area">Area</ion-label>
+                <ion-input type="text" formControlName="area" [disabled]="!edit"></ion-input>
+              </ion-item>
         
-        </ion-footer>
-
-      
-
-
-
-      
-
-
-    
-    </ion-list>
-  </form>
+              <ion-item>
+                  <ion-label floating for="email" >Email</ion-label>
+                <ion-input type="text" formControlName="email" [disabled]="!edit"></ion-input>
+              </ion-item>
+            
+              <ion-item>
+                  <ion-label floating for="phone" >Phone Number</ion-label>
+                <ion-input type="text" formControlName="phone" [disabled]="!edit"></ion-input>
+              </ion-item>
+</form>
+          
+            </ion-list>
+          
+  
 </ion-content>
