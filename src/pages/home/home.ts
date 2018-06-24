@@ -1,11 +1,12 @@
 import { Component, ElementRef, NgModule, NgZone, OnInit, ViewChild } from '@angular/core';
 import { NavController, Platform, AlertController, ModalController } from 'ionic-angular';
 import { BrowserModule } from "@angular/platform-browser";
-import { AngularFirestore } from 'angularfire2/firestore';
+//import { AngularFirestore } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { RestModalPage } from '../rest-modal/rest-modal';
 import { } from 'googlemaps';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
+//import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 import { FormControl } from "@angular/forms";
 import { Geolocation } from '@ionic-native/geolocation';
@@ -54,7 +55,10 @@ export class HomePage {
             width:40,
             height: 40
             }
-        };            
+        }; 
+        
+    public currentLat:any;
+    public currentLong:any;    
 
     public styles = [
         {
@@ -302,6 +306,7 @@ export class HomePage {
         private mapsAPILoader: MapsAPILoader,
         private GeoService : GeoServiceProvider,
         private ngZone: NgZone,
+        //private auth: AuthServiceProvider
         ){ 
         //this.items = db.collection('items').valueChanges(); 
         
@@ -312,6 +317,7 @@ export class HomePage {
         this.geolocation.getCurrentPosition().then((resp) => {
         // resp.coords.latitude
         // resp.coords.longitude
+    
         this.lat3 = resp.coords.latitude;
         this.long3 = resp.coords.longitude;
         }).catch((error) => {
@@ -342,8 +348,14 @@ export class HomePage {
         //load Places Autocomplete
         this.mapsAPILoader.load().then(() => {
         let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-            types: ["address"]
+            types: ["geocode"],
+            
         });
+
+        autocomplete.setComponentRestrictions(
+            {'country': ['ie']
+        });
+
         autocomplete.addListener("place_changed", () => {
             this.ngZone.run(() => {
             //get the place result

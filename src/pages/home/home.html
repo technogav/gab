@@ -6,7 +6,7 @@
       </button>
     </ion-buttons>
   </ion-navbar>  
-  <ion-toolbar color="light">
+  <ion-toolbar style="background:white;">
     
     <div float-left id="search_icon_bg">
         <ion-icon name="search" id="search_icon"></ion-icon>
@@ -45,7 +45,7 @@
   <agm-map 
     [latitude]="lat3" 
     [longitude]="long3" id="map" 
-    [zoom]="14" 
+    [zoom]="15" 
     [styles]="styles"
     [streetViewControl]="false"
     [zoomControl]="false"
@@ -87,7 +87,7 @@
         </div>
       </agm-info-window> -->
 
-      <agm-snazzy-info-window [wrapperClass]="'cz-info-window-container'"
+      <!-- <agm-snazzy-info-window [wrapperClass]="'cz-info-window-container'"
                                   [maxWidth]="375"
                                   [maxHeight]= "375"
                                   [pointer]="'10px'"
@@ -101,12 +101,12 @@
                                   >
             <ng-template>
                 <div style="width: 250px; position:relative; height:auto; margin-top: 0px; margin-bottom:4px; padding:0px;">
-                    <img width="100%" src="/assets/imgs/restaurant_inside.jpg" alt="">
-                    <div text-center><strong>Info Window</strong></div>
+                    <img width="100%" src="{{item.img}}" alt="">
+                    <div text-center><strong>{{item.name }}</strong></div>
                     <ion-grid>
                       <ion-row>
                         <ion-col>
-                            <div text-center>Early bird Special. 10% off any meal for two and a free bottle of wine!</div>
+                            <div text-center>{{item.currentDeal['dealDesc']}}</div>
                         </ion-col>   
                       </ion-row>
                       <ion-row>
@@ -117,7 +117,7 @@
                     </ion-grid>
                   </div>
             </ng-template>
-          </agm-snazzy-info-window>
+          </agm-snazzy-info-window> -->
       
       <!-- !using windows like this cause a memory leak don't forget to change to programically open close -->
     </agm-marker>

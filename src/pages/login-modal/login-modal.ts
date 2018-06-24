@@ -39,13 +39,13 @@ export class LoginModalPage {
     console.log('ionViewDidLoad LoginModalPage');
   }
 
-  onSubmit(){
+  /* onSubmit(){
 
     this.userService.saveUser(this.loginForm.value);
     this.continueToBooking();
-  }
+  } */
 
-  continueToBooking() {
+  /* continueToBooking() {
 
     let modal = this.modalCtrl.create(BookingModalPage);
 
@@ -56,11 +56,11 @@ export class LoginModalPage {
     modal.present();
 
 
-  }
+  }*/
 
   dismiss(bool) {
     //let data = { 'foo': 'bar' };
     this.viewCtrl.dismiss(bool);
-  }
+  } 
 
 }

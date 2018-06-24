@@ -27,8 +27,9 @@ import { LoginPage } from '../pages/login/login';
 import { LoginModalPage } from '../pages/login-modal/login-modal';
 
 
+
 import { AgmCoreModule } from '@agm/core';
-import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
+//import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 
 import { ReservationsArchivedPage } from '../pages/reservations-archived/reservations-archived';
 
@@ -64,10 +65,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
       libraries: ["places"]
       
     }),
-    AgmSnazzyInfoWindowModule,
+    //AgmSnazzyInfoWindowModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
     AngularFireStorageModule, // imports firebase/storage only needed for storage features

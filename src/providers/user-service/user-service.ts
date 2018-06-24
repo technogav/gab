@@ -1,5 +1,11 @@
 //import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
+import * as firebase from 'firebase';
+import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
+//import { Observable } from 'rxjs';
+import { Item } from 'ionic-angular';
+import { Observable } from 'rxjs/Observable';
+import { map } from "rxjs/operators";
 /* import { User } from '../../models/userModal' */
 
 /*
@@ -13,12 +19,61 @@ import { Injectable } from '@angular/core';
   apis contacted will be firebase facebook google and whatever
 */
 @Injectable()
-export class UserServiceProvider {
+export class UserServiceProvider implements OnInit{
 
-  private user;
+  document: AngularFirestoreDocument<any>;
+  collection$: Observable<Item[]>;
+  snapshot: any;
+  
+  collection: AngularFirestoreCollection<Item>;
 
-  constructor(/* public http: HttpClient */) {
+  constructor(private afs: AngularFirestore) {
     console.log('Hello UserServiceProvider Provider');
+
+    //get collection from db
+    //const collection: AngularFirestoreCollection<Item> = afs.collection('messages');
+    //const collection$: Observable<Item> = collection.valueChanges();
+    //collection$.subscribe(data => console.log(data) );
+
+    /* const meta = collection.snapshotChanges()
+      .pipe(map(
+          changes =>{
+            return changes.map(c=>{
+              console.log(c.payload.doc.id);
+               return c.payload.doc.id;
+            })
+          })   
+      ); */
+
+     
+  }
+
+  ngOnInit() {
+    console.log(123);
+    this.collection = this.afs.collection('messages', ref =>{
+      return ref.where('name', '==' , 'kelly').limit(1);
+    });
+    this.collection$ = this.collection.valueChanges();
+    this.collection$.subscribe(data => console.log(data) );
+    this.snapshot = this.collection.snapshotChanges()
+      .pipe(map(arr => {
+        console.log(arr);
+        arr.map(snap => snap.payload.doc.data() )
+      }));
+  }
+
+  ionViewDidLoad(){
+    /* console.log(123);
+    this.collection = this.afs.collection('messages', ref =>{
+      return ref.where('name', '==' , 'kelly').limit(1);
+    });
+    this.collection$ = this.collection.valueChanges();
+    this.collection$.subscribe(data => console.log(data) );
+    this.snapshot = this.collection.snapshotChanges()
+      .pipe(map(arr => {
+        console.log(arr);
+        arr.map(snap => snap.payload.doc.data() )
+      })); */
   }
 
   getUser(){
