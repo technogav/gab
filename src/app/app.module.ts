@@ -15,13 +15,27 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireStorageModule } from 'angularfire2/storage';
+//import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from './fbCredentials';
 import { UserServiceProvider } from '../providers/user-service/user-service';
 import { GeoServiceProvider } from '../providers/geo-service/geo-service';
 import { RestModalPage } from '../pages/rest-modal/rest-modal';
+import { FilterModalPage } from '../pages/filter-modal/filter-modal';
 import { BookingModalPage } from '../pages/booking-modal/booking-modal';
+import { LoginPage } from '../pages/login/login';
+import { LoginModalPage } from '../pages/login-modal/login-modal';
+
+
+
+import { AgmCoreModule } from '@agm/core';
+//import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
+
+import { ReservationsArchivedPage } from '../pages/reservations-archived/reservations-archived';
+
+import { Geolocation } from '@ionic-native/geolocation';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
 
 
 
@@ -36,14 +50,29 @@ import { BookingModalPage } from '../pages/booking-modal/booking-modal';
     HomePage,
     RestModalPage,
     BookingModalPage,
-    TabsPage
+    //ReservationsArchivedPage,
+    FilterModalPage,
+    TabsPage,
+    LoginPage,
+    LoginModalPage
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
+
+    AgmCoreModule.forRoot({
+      apiKey:'AIzaSyD9WttyqFcI5wTLvoL16i1Kri_Vzg7kINE',
+      libraries: ["places"]
+      
+    }),
+    //AgmSnazzyInfoWindowModule,
+    BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
+    
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
-    AngularFireStorageModule, // imports firebase/storage only needed for storage features
+    //AngularFireStorageModule, // imports firebase/storage only needed for storage features
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
@@ -56,14 +85,22 @@ import { BookingModalPage } from '../pages/booking-modal/booking-modal';
     HomePage,
     RestModalPage,
     BookingModalPage,
-    TabsPage
+    FilterModalPage,
+    //ReservationsArchivedPage,
+    TabsPage,
+    LoginPage,
+    LoginModalPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserServiceProvider,
-    GeoServiceProvider
-  ]
+    GeoServiceProvider,
+    Geolocation,
+    
+  ],
+
+  
 })
 export class AppModule {}

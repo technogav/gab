@@ -13,14 +13,16 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 
 @IonicPage()
 @Component({
-  selector: 'page-rest-modal',
-  templateUrl: 'rest-modal.html',
+  selector: 'page-filter-modal',
+  templateUrl: 'filter-modal.html',
 })
-export class RestModalPage {
+export class FilterModalPage {
 
-  reservationForm = new FormGroup({
-    'date': new FormControl(),
-    'time': new FormControl()
+  filterSearchForm = new FormGroup({
+    'searchByDate': new FormControl(),
+    'searchByRestaurant': new FormControl(),
+    'searchByLocation': new FormControl(),
+    'searchByCuizine': new FormControl()
   });
 
   constructor(
@@ -50,27 +52,35 @@ export class RestModalPage {
     alert.present();
   }
 
+  public filterList(){
+    //open modal with list
+  }
+
+  public filterSearch(){
+    //either open modal for fail or show map
+  }
+
   onSubmit(){
 
     console.log("here");
 
-    this.userService.reservation(this.reservationForm.value);
+    this.userService.reservation(this.filterSearchForm.value);
   }
 
 
   reserve() {
 
-    let modal = this.modalCtrl.create(BookingModalPage,{
-      'date' : this.reservationForm.value.date,
+    /* let modal = this.modalCtrl.create(BookingModalPage,{
+      'date' : this.filterSearchForm.value.date,
       'time' : this.reservationForm.value.time
-    });
+    }); */
 
-    modal.onDidDismiss(data => {
+    /* modal.onDidDismiss(data => {
       console.log("here", data);
       data?  this.dismiss(data) : console.log('onDidDismiss sent',  data);
-    });
+    }); */
  
-    modal.present();
+    /* modal.present(); */
 
 
   }

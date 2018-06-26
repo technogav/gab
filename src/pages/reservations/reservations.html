@@ -4,41 +4,104 @@
       My Reservations
     </ion-title>
   </ion-navbar>
+  <ion-toolbar>  
+    <ion-grid>
+      <ion-row>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label>Current</ion-label><ion-checkbox checked></ion-checkbox>
+          </ion-item>  
+        </ion-col>
+        <ion-col col-6>
+          <ion-item>
+            <ion-label>Archived</ion-label><ion-checkbox></ion-checkbox>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-grid>  
+  </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-    <ion-card>
+  <ion-card>
+    <!-- <img src="img/advance-card-map-madison.png"> -->
+    <div style="width:100%; height:auto; background:lightgrey; overflow:hidden">
+      <img width="100%" src="/assets/imgs/restaurant_inside.jpg" alt="Restaurant interior image">
+    </div>
+      <ion-grid>
+        
 
-        <!-- <img src="img/advance-card-map-madison.png"> -->
-        <div style="width:100%; height:240px; background:lightgrey"></div>
-        <ion-fab right top>
-          <button ion-fab>
-            <ion-icon name="pin"></ion-icon>
-          </button>
-        </ion-fab>
+        <ion-row>
+          <ion-col col-10>
+              <h1 text-center>Gavins Grub</h1>
+              <p text-center>Main Street Newbridge, Kildare</p>
+
+            <p text-center><strong>Early bird special. 10% off any meal and a free bottle of wine!</strong>
+              
+            </p>
+            <p style="margin-top: 40px;">
+              Booked for <span style="color:red;">Tuesday 25th March at 5:00pm.</span>
+            </p>
+
+          </ion-col>
+          <ion-col col-2>
+            <button ion-button clear float-right large>
+              <ion-icon name="alarm" icon-end large (click)="ratePlace()"></ion-icon>
+            </button><br>
+            <button ion-button clear float-right large>
+              <ion-icon name="star" icon-end large (click)="ratePlace()"></ion-icon>
+            </button>
+            <button ion-button clear float-right large (click)="ratePlace()">
+              <ion-icon name="call" icon-end large></ion-icon>
+            </button>
+          </ion-col>
+        </ion-row>
+        
+      </ion-grid>
       
-        <ion-item>
-          <ion-icon name="football" item-start large></ion-icon>
-          <h2>Good Eats</h2>
-          <p>Main Street Newbridge, Kildare</p>
-        </ion-item>
+    <ion-item>
+      <button ion-button icon-left full>
+        <ion-icon name="navigate"></ion-icon>
+        Directions
+      </button>
+    </ion-item>      
+  </ion-card>
+  <ion-card>
+
+    <!-- <img src="img/advance-card-map-madison.png"> -->
+    <div style="width:100%; height:auto; background:lightgrey; overflow:hidden">
+      <img width="100%" src="/assets/imgs/restaurant_inside.jpg" alt="Restaurant interior image">
+    </div>
       
-        <!-- <ion-item>
-          <ion-icon name="wine" item-left large ></ion-icon>
-          <h2>Institute of Fine Cocktails</h2>
-          <p>14 S. Hop Avenue, Madison, WI 53703</p>
-        </ion-item> -->
+    <ion-item>
+      <button ion-button clear float-right large>
+        <ion-icon name="alarm" icon-end large></ion-icon>
+      </button><br>
+      <button ion-button clear float-right large (click)="ratePlace()">
+        <ion-icon name="star" icon-end large ></ion-icon>
+      </button>  
+      <h1>Good Eats</h1>
+      <p>Main Street Newbridge, Kildare</p>
+    </ion-item>
       
-        <ion-item>
-          <span item-left>18 min</span>
-          <span item-left>(2.6 mi)</span>
-          <button ion-button icon-left clear item-end>
-            <ion-icon name="navigate"></ion-icon>
-            Map
-          </button>
-        </ion-item>
+    <ion-item>
+      <button ion-button clear float-right large (click)="openAlert('call')">
+        <ion-icon name="call" icon-end large></ion-icon>
+      </button>
+      <h3>Title</h3>
+      <p><strong>Name - </strong>
+        <span style="color:#444"><i>Main Street Newbridge, Kildare</i></span>
+      </p>
+    </ion-item>
       
-      </ion-card>
+    <ion-item>
+      <button ion-button icon-left full>
+        <ion-icon name="navigate"></ion-icon>
+        Directions
+      </button>
+    </ion-item>
+      
+  </ion-card>
   
 </ion-content>

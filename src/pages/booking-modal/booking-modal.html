@@ -14,16 +14,24 @@
 
 
 <ion-content padding>
+  <!-- <img src="img/advance-card-map-madison.png"> -->
+  <div style="width:100%; height:240px; background:lightgrey"></div>
+  <ion-list *ngIf="true">
+    <ion-item>You have successfully booked your Deal!</ion-item>
 
-  <ion-list>
-    <ion-item>Success or fail</ion-item>
-    <ion-item>If success details</ion-item>
-    <ion-item>If fail notify</ion-item>
-    <ion-item>button nav abck to home passing details to decrement deal</ion-item>
-    <ion-item>Add reservation to user object</ion-item>
-    <ion-item>Add reservation to restaurant</ion-item>
+    <ion-item>
+      <p><strong>Booked at: Gavins Grub</strong></p>
+      <p><strong>Booking Time: {{bookingTime}}</strong> </p>
+      <p><strong>Booking Date: {{bookingDate}}</strong></p>
+    <ion-item>We have emialed/texted you your booking code.<p>Please present this before making your order.</p></ion-item>
+    
+      <h1>Ref : BKR00254</h1>
+    
+    </ion-item>
+    
   </ion-list>
-
-  <button (click)="dismiss()" full color="primary">Dismiss All</button>
+  <button (click)="showAlert()"ion-button full color="primary">Directions</button>
+  <button (click)="showAlert()"ion-button full color="primary">1 Hour Reminder</button>
+  <button (click)="dismiss(true)"ion-button full color="primary">Dismiss All</button>
 
 </ion-content>

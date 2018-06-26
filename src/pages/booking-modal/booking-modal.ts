@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ViewController, AlertController } from 'ionic-angular';
 
 /**
  * Generated class for the BookingModalPage page.
@@ -15,16 +15,38 @@ import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angul
 })
 export class BookingModalPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public viewCtrl: ViewController) {
+  isBooked:boolean =true;
+  bookingDate: string = this.params.get('date');
+  bookingTime: string = this.params.get('time');
+
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams, 
+    public viewCtrl: ViewController,
+    public alertCtrl: AlertController,
+    public params: NavParams) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad BookingModalPage');
   }
+  
 
-  dismiss() {
+  dismiss(bool) {
+    console.log(1, bool);
     //let data = { 'foo': 'bar' };
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss(bool);
+  }
+
+  public showAlert() {
+    let alert = this.alertCtrl.create({
+      title: 'Coming Soon',
+      subTitle: "This feature is not available yet",
+      buttons: ['OK']
+    });
+
+
+    alert.present();
   }
 
 }

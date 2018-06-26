@@ -7,50 +7,54 @@
 </ion-header>
 
 <ion-content>
-  <h3 *ngIf="true" text-center>Add Your Details</h3>
+  <h3 *ngIf="true" text-center>Profile</h3>
   <h3 *ngIf="false" text-center>Edit Your Details</h3>
   <ion-grid>
       <ion-row>
-          <ion-col></ion-col>
-          <ion-col> </ion-col>
-          <ion-col>
-            <button ion-button icon-end (click)="openProfileModal()" float-right style="padding-right:20px;">
-              Edit
-              <ion-icon name="create"></ion-icon>
-            </button>
+          <ion-col col-3>
+            
+              <button *ngIf="editSave" (click)="toggleEditMode()" ion-button style="min-width: 40px"color="primary" outline>Edit</button>
+              <button *ngIf="!editSave" (click)="toggleEditMode()" ion-button style="min-width: 40px"color="secondary" outline>Save</button>
+              <button *ngIf="!editSave" (click)="toggleEditMode()" ion-button style="min-width: 40px"color="secondary" outline>Upload photo</button>
+              
           </ion-col>
+          <ion-col col-5> </ion-col>
+          <ion-col col-4 class="profile-pic-container"> 
+            <img src="/assets/imgs/joker.jpg" alt="">
+            
+          </ion-col>
+
         </ion-row>
   </ion-grid>
   
-  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-    <ion-list>
-
-      <ion-item>
-        <ion-input type="text" placeholder="Name" formControlName="name"></ion-input>
-      </ion-item>
+  <div style="margin-top:10px;"></div>
+  <ion-list>
     
-      <ion-item>
-        <ion-input type="text" placeholder="Area" formControlName="area"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <ion-input type="text" placeholder="Email" formControlName="email"></ion-input>
-      </ion-item>
-    
-      <ion-item>
-        <ion-input type="text" placeholder="Phone Number" formControlName="phone"></ion-input>
-      </ion-item>
-
-      <ion-item>
-        <button ion-button color="secondary" full large>Submit</button>
-      </ion-item>
-
-
-
-      
-
-
-    
-    </ion-list>
-  </form>
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+            
+              
+              <ion-item>
+                  <ion-label floating for="name" >Name</ion-label>
+                <ion-input type="text" formControlName="name"></ion-input>
+              </ion-item>
+            
+              <ion-item>
+                  <ion-label floating for="area">Area</ion-label>
+                <ion-input type="text" formControlName="area"></ion-input>
+              </ion-item>
+        
+              <ion-item>
+                  <ion-label floating for="email" >Email</ion-label>
+                <ion-input type="text" formControlName="email" ></ion-input>
+              </ion-item>
+            
+              <ion-item>
+                  <ion-label floating for="phone" >Phone Number</ion-label>
+                <ion-input type="text" formControlName="phone"></ion-input>
+              </ion-item>
+</form>
+          
+            </ion-list>
+          
+  
 </ion-content>
