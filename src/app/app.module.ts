@@ -15,7 +15,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
-import { AngularFireStorageModule } from 'angularfire2/storage';
+//import { AngularFireStorageModule } from 'angularfire2/storage';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from './fbCredentials';
 import { UserServiceProvider } from '../providers/user-service/user-service';
@@ -72,7 +72,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     
     AngularFirestoreModule, // imports firebase/firestore, only needed for database features
     AngularFireAuthModule, // imports firebase/auth, only needed for auth features,
-    AngularFireStorageModule, // imports firebase/storage only needed for storage features
+    //AngularFireStorageModule, // imports firebase/storage only needed for storage features
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],
