@@ -52,12 +52,50 @@
     #map
     (mapClick)="mapClick($event, infoWindow)"
   >
+
+  <agm-snazzy-info-window
+    [isOpen]="markerOpen" 
+    [latitude]="markerLat" 
+    [longitude]="markerLong" 
+    [wrapperClass]="'cz-info-window-container'"
+    [maxWidth]="375"
+    [maxHeight]= "375"
+    [pointer]="'10px'"
+    [openOnMarkerClick]="true"
+    [closeWhenOthersOpen]="true"
+    [showCloseButton]="false"
+    [borderRadius]="'4px'"
+    (beforeOpen)="infoWindowOpening()"
+    [backgroundColor]="'#FFF'"
+    [padding]="'2px'"
+    >   
+    <ng-template>
+      <div style="width: 250px; position:relative; height:auto; margin-top: 0px;    margin-bottom:4px; padding:0px;">
+        <img width="100%" src="{{markerImg}}" alt="">
+        <div text-center><strong>{{markerName}}</strong></div>
+        <ion-grid>
+          <ion-row>
+            <ion-col>
+                <div text-center>{{markerCurrentDeal}}</div>
+            </ion-col>   
+          </ion-row>
+          <ion-row>
+            <ion-col>
+              <button (click)="openLoginModal()" ion-button full>Details</button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+  </ng-template>
+    </agm-snazzy-info-window>
+
+    <!-- current location (blinking dot) -->
+    <!-- chnage this so that lat ad long are not the same as map center -->
     <agm-marker 
       [latitude]="lat3" 
       [longitude]="long3" 
       [iconUrl]="icon" 
-      [markerClickable]="true"
-         
+      [markerClickable]="true"     
     >
     </agm-marker>
     <agm-marker 
@@ -66,6 +104,7 @@
       [longitude]="item.long"
       [iconUrl]="custom_marker"
       #marker
+      (markerClick) = "hello(item)"
     >
     <!-- INFO WINDOW -->
     <!-- <agm-info-window #infoWindow style="padding:0px;">

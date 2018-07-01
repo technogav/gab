@@ -29,7 +29,7 @@ import { LoginModalPage } from '../pages/login-modal/login-modal';
 
 
 import { AgmCoreModule } from '@agm/core';
-//import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
+import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 
 import { ReservationsArchivedPage } from '../pages/reservations-archived/reservations-archived';
 
@@ -65,7 +65,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
       libraries: ["places"]
       
     }),
-    //AgmSnazzyInfoWindowModule,
+    AgmSnazzyInfoWindowModule,
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
@@ -100,6 +100,8 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     Geolocation,
     
   ],
+
+  
 
   
 })

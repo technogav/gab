@@ -59,7 +59,13 @@ export class HomePage {
         
     public currentLat:any;
     public currentLong:any;    
-
+    public zoomLevel:number = 4;
+    public markerLat:number;
+    public markerLong:number;
+    public markerOpen: boolean = false;
+    public markerImg: string;
+    public markerName: string;
+    public markerCurrentDeal: string;
     public styles = [
         {
             "featureType": "administrative.locality",
@@ -341,7 +347,7 @@ export class HomePage {
 
     ngOnInit() {
         //set google maps defaults
-        this.zoom = 4;
+        this.zoom = this.zoomLevel;
         //create search FormControl
         this.searchControl = new FormControl();
         
@@ -353,8 +359,10 @@ export class HomePage {
         });
 
         autocomplete.setComponentRestrictions(
-            {'country': ['ie']
-        });
+            {
+                'country': ['ie']
+            }
+        );
 
         autocomplete.addListener("place_changed", () => {
             this.ngZone.run(() => {
@@ -373,6 +381,16 @@ export class HomePage {
             });
         });
         });
+    }
+
+    public hello(item){
+        console.log(item);
+        this.markerLat = item.lat;
+        this.markerLong = item.long;
+        this.markerOpen = true;
+        this.markerImg = item.img;
+        this.markerName = item.name;
+        this.markerCurrentDeal = item.currentDeal['dealDesc'];
     }
 
     
