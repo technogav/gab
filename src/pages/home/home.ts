@@ -299,6 +299,10 @@ export class HomePage {
             ]
         }
     ];
+    mapCenterLng: number;
+    mapCenterLat: number;
+    currentLocLat: number;
+    currentLocLng: number;
    
     infoWindowOpening(){
         console.log('owej');
@@ -321,11 +325,14 @@ export class HomePage {
         //this.openModal();
 
         this.geolocation.getCurrentPosition().then((resp) => {
-        // resp.coords.latitude
-        // resp.coords.longitude
+ 
+        //console.log(resp.coords.latitude, 001);
+        this.mapCenterLat = resp.coords.latitude;
+        this.mapCenterLng = resp.coords.longitude;
+        this.currentLocLat = resp.coords.latitude;
+        this.currentLocLng = resp.coords.longitude;
     
-        this.lat3 = resp.coords.latitude;
-        this.long3 = resp.coords.longitude;
+        
         }).catch((error) => {
         console.log('Error getting location', error);
         });
@@ -375,8 +382,11 @@ export class HomePage {
             }
             
             //set latitude, longitude and zoom
-            this.lat3 = place.geometry.location.lat();
-            this.long3 = place.geometry.location.lng();
+            
+            this.mapCenterLat = place.geometry.location.lat();
+            this.mapCenterLng = place.geometry.location.lng();
+            /* this.lat3 = place.geometry.location.lat();
+            this.long3 = place.geometry.location.lng(); */
             this.zoom = 12;
             });
         });
@@ -412,16 +422,35 @@ export class HomePage {
         modal.present();
     }
 
-    public getCurrentPosition(search){
+    returnToPosition(search){
         console.log(search);
+
+    }
+
+    public getCurrentPosition(search){
+        console.log('search');
         search.value="";
 
         //console.log(this.searchControl.value);
         this.geolocation.getCurrentPosition().then((resp) => {
-        // resp.coords.latitude
-        // resp.coords.longitude
-        this.lat3 = resp.coords.latitude;
-        this.long3 = resp.coords.longitude;
+
+            console.log(resp.coords.latitude);
+            console.log(resp.coords.longitude);
+            console.log(6);
+ 
+        this.mapCenterLat = resp.coords.latitude;
+        this.mapCenterLng = resp.coords.longitude;
+        }).catch((error) => {
+            console.log('Error getting location', error);
+        });
+    }
+
+    public resetMap(){
+        this.geolocation.getCurrentPosition().then((resp) => { 
+
+            this.mapCenterLat = resp.coords.latitude;
+            this.mapCenterLng = resp.coords.longitude;
+
         }).catch((error) => {
             console.log('Error getting location', error);
         });

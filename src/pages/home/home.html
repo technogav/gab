@@ -32,7 +32,7 @@
         <button (click)="openFilterModal()" ion-button clear icon-only outline style="margin-left:4px">
             <ion-icon name="funnel"></ion-icon>
           </button>
-          <button (click)="getCurrentPosition(search)" ion-button clear icon-only outline>
+          <button (click)="resetMap()" ion-button clear icon-only outline>
               <ion-icon name="pin"></ion-icon>
             </button>
     </ion-buttons>
@@ -43,8 +43,8 @@
 
 <ion-content id="content">
   <agm-map 
-    [latitude]="lat3" 
-    [longitude]="long3" id="map" 
+    [latitude]="mapCenterLat" 
+    [longitude]="mapCenterLng" id="map" 
     [zoom]="15" 
     [styles]="styles"
     [streetViewControl]="false"
@@ -92,8 +92,8 @@
     <!-- current location (blinking dot) -->
     <!-- chnage this so that lat ad long are not the same as map center -->
     <agm-marker 
-      [latitude]="lat3" 
-      [longitude]="long3" 
+      [latitude]="currentLocLat" 
+      [longitude]="currentLocLng" 
       [iconUrl]="icon" 
       [markerClickable]="true"     
     >
