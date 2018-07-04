@@ -23,6 +23,7 @@ export class RestModalPage {
     'date': new FormControl(),
     'time': new FormControl()
   });
+  showT: boolean;
 
   constructor(
     public navCtrl: NavController, 
@@ -33,6 +34,11 @@ export class RestModalPage {
     public userService: UserServiceProvider) {
       this.markerInfo = this.navParams.get('markerInfo')
       //this.markerInfo = navParams.get('markerInfo');
+  }
+
+  showTimes(){
+
+    this.showT = !this.showT;
   }
 
   ionViewDidLoad() {
@@ -54,8 +60,6 @@ export class RestModalPage {
   }
 
   onSubmit(){
-
-    console.log("here");
 
     this.userService.reservation(this.reservationForm.value);
   }

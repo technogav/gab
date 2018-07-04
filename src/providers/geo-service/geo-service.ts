@@ -17,40 +17,40 @@ export class GeoServiceProvider {
   private rests=[
     {
       'name': 'Weeping Thaiger',
-      'type' : 'Asian',
+      'type' : 'restaurant',
       'takeaway-restaurant' : 'restaurant',
       'area' : 'Newbridge',
       'lat': 53.17628863349991, 
       'long': -6.80227794371217, 
-      'img' : '/assets/imgs/weepingThaigerInside.jpg', 
+      'img' : '/assets/imgs/weep.png', 
       'desc' : '160chars or less',
       'currentDeal' : {'id': '1','dealDesc' : 'Early bird Special. 10% off any evening meal plus a free bottle of wine'}
     },
     {
       'name': 'Judge Roy Beans',
-      'type' : 'Asian',
+      'type' : 'pub',
       'takeaway-restaurant' : 'restaurant',
       'area' : 'Newbridge',
       'lat': 53.177986220418724, 
       'long': -6.801419636827404,
-      'img' : '/assets/imgs/jrbInside.jpg',  
+      'img' : '/assets/imgs/jrb.png',  
       'desc' : '160chars or less',
       'currentDeal' : {'id': '1','dealDesc' : 'Kids eat for Free. Plus one round of soft drinks!'}
     },
     {
       'name': 'Weeping Thaiger',
-      'type' : 'Asian',
+      'type' : 'restaurant',
       'takeaway-restaurant' : 'both',
       'area' : 'Newbridge',
       'lat': 53.12923805346222, 
       'long': -6.7583513259887695,
-      'img' : '/assets/imgs/restaurant_inside.jpg',  
+      'img' : '/assets/imgs/weep.png',  
       'desc' : '160chars or less',
       'currentDeal' : {'id': '1','dealDesc' : 'Early bird Special. 10% off any evening meal plus a free bottle of wine'}
     },
     {
       'name': 'Fallons',
-      'type' : 'Traditional',
+      'type' : 'entertainment',
       'takeaway-restaurant' : 'restaurant',
       'area' : 'Kilcullen',
       'lat': 53.13207946265469, 
@@ -60,19 +60,19 @@ export class GeoServiceProvider {
       'currentDeal' : {'id': '1','dealDesc' : '20% off friday night! Selected menu.'}
     },
     {
-      'name': 'Bardons',
-      'type' : 'Traditional',
+      'name': 'Bardons Restaurant',
+      'type' : 'restaurant',
       'takeaway-restaurant' : 'restaurant',
       'area' : 'Kilcullen',
       'lat': 53.131387625249616,
       'long': -6.744749119465723, 
-      'img' : '/assets/imgs/bardonsInside.jpg',
+      'img' : '/assets/imgs/bardons.png',
       'desc' : '160chars or less',
       'currentDeal' : {'id': '1','dealDesc' : 'Buy one desert get one free'}
     },
     {
       'name': 'Weeping Thaiger',
-      'type' : 'Asian',
+      'type' : 'restaurant',
       'takeaway-restaurant' : 'restaurant',
       'area' : 'Newbridge',
       'lat': 53.346093449906036, 
@@ -82,15 +82,41 @@ export class GeoServiceProvider {
       'currentDeal' : {'id': '1','dealDesc' : 'Early bird Special. 10% off any evening meal plus a free bottle of wine'}
     },
     {
-      'name': 'Weeping Thaiger',
-      'type' : 'Asian',
+      'name': 'ODEAN Cinema Newbridge',
+      'type' : 'entertainment',
       'takeaway-restaurant' : 'restaurant',
       'area' : 'Newbridge',
-      'lat': 53.34706698318468, 
-      'long': -6.299457550048828, 
-      'img' : '/assets/imgs/restaurant_inside.jpg',
-      'desc' : '160chars or less',
-      'currentDeal' : {'id': '1','dealDesc' : 'Early bird Special. 10% off any evening meal plus a free bottle of wine'}
+      'lat': 53.17687460947875, 
+      'long': -6.7984137056042755, 
+      'img' : '/assets/imgs/images.png',
+      'desc' : 'We pride ourselves in the very best cinema experience: cutting-edge technology and the widest choice of experiences (this extends way beyond the box office – we also screen live sports and cultural events and special screenings for specific groups too',
+      'currentDeal' : {
+        'id': '1', 
+        'name': 'Summer Madness', 
+        'dealDesc' : 'Two tickets, one large popcorn and two medium soft drinks only €20', 'conditions': 'You must present the your booking to the staff upon arrival through our QR code that will be generated. Deal is only valid between the specified times.', 'startTime': '09:00', 
+        'endTime': '22:00', 
+        'startDate': '5th May 2018', 
+        'endDate' : '6th May 2018', 
+        'weeklyRecurring': false}
+    },
+    {
+      'name': 'River Bank Theater',
+      'type' : 'entertainment',
+      'takeaway-restaurant' : 'restaurant',
+      'area' : 'Newbridge',
+      'lat': 53.18202979360638, 
+      'long': -6.79446068902007, 
+      'img' : '/assets/imgs/riverBank.jpg',
+      'desc' : 'Riverbank Arts Centre hosts a programme of local, national and international productions including theatre, music, opera, comedy and visual arts. The venue comprises of a 180 seat auditorium, Children’s Gallery, McKenna Gallery, a contemporary gallery hosting both local national and international artists,  and a café. ',
+      'currentDeal' : {
+        'id': '1', 'name': 
+        'Summer Madness', 
+        'dealDesc' : 'Admission for two to see Mama Mia and two free coffee just €20',
+        'conditions': 'You must present the your booking to the staff upon arrival through our QR code that will be generated. Deal is only valid between the specified times.', 'startTime': '09:00', 
+        'endTime': '22:00', 
+        'startDate': '5th May 2018', 
+        'endDate' : '6th May 2018', 
+        'weeklyRecurring': false}
     }
     
     

@@ -12,18 +12,7 @@ import { FormControl } from "@angular/forms";
 import { Geolocation } from '@ionic-native/geolocation';
 import { GeoServiceProvider } from '../../providers/geo-service/geo-service';
 import { FilterModalPage } from '../filter-modal/filter-modal';
-import { LoginModalPage } from '../login-modal/login-modal';//if click rest details & logged out show modal
-
-/* export class AppComponent {
-  title: string = 'Gab';
-  lat2: number;
-  lng2: number;
-
-  constructor(){
-    this.lat2 = 51.678418;
-    this.lng2 = 7.809007;
-  }
-} */
+import { LoginModalPage } from '../login-modal/login-modal';//if click rest details & logged 
 
 @Component({
   selector: 'page-home',
@@ -304,11 +293,10 @@ export class HomePage {
     mapCenterLat: number;
     currentLocLat: number;
     currentLocLng: number;
+    
     tempMap : { lat: number, lng:number };
    
-    infoWindowOpening(){
-        console.log('owej');
-    }
+    infoWindowOpening(){}
 
     constructor(
         public agm:AgmCoreModule,
@@ -325,19 +313,15 @@ export class HomePage {
         
         //this.showAlert();
         //this.openModal();
-
-        this.geolocation.getCurrentPosition().then((resp) => {
- 
-        //console.log(resp.coords.latitude, 001);
-        this.mapCenterLat = resp.coords.latitude;
-        this.mapCenterLng = resp.coords.longitude;
-        this.currentLocLat = resp.coords.latitude;
-        this.currentLocLng = resp.coords.longitude;
-        this.tempMap = { lat: resp.coords.latitude, lng: resp.coords.longitude };
-    
-        
+        this.geolocation.getCurrentPosition()
+            .then((resp) => {
+                this.mapCenterLat = resp.coords.latitude;
+                this.mapCenterLng = resp.coords.longitude;
+                this.currentLocLat = resp.coords.latitude;
+                this.currentLocLng = resp.coords.longitude;
+                this.tempMap = { lat: resp.coords.latitude, lng: resp.coords.longitude };
         }).catch((error) => {
-        console.log('Error getting location', error);
+            console.log('Error getting location', error);
         });
 
         /* let watch = this.geolocation.watchPosition();
@@ -351,13 +335,43 @@ export class HomePage {
 
         //dont forget to unsubscribe to stop memory leaks
         }); */
-
-
     }//end constructor
+
+    ngOnInit() {
+        //set google maps defaults
+        this.zoom = this.zoomLevel;
+        //create search FormControl
+        this.searchControl = new FormControl();
+        
+        //load Places Autocomplete
+        this.mapsAPILoader.load()
+            .then(() => {
+                let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+                    types: ["geocode"] 
+                });
+
+                autocomplete.setComponentRestrictions({'country': ['ie']}
+            );
+
+                autocomplete.addListener("place_changed", () => {
+                    this.ngZone.run(() => {
+                    let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+                    //verify result
+                    if (place.geometry === undefined || place.geometry === null) {
+                        return;
+                    }
+                
+                    this.mapCenterLat = place.geometry.location.lat();
+                    this.mapCenterLng = place.geometry.location.lng();
+                    this.zoom = 12;
+                });
+            });
+        });
+    }//ngOnit
 
     //track drag center
     public trackCenter(event){
-        //set new center
         if(event){
             this.tempMap['lat'] = event.lat;
             this.tempMap['lng'] = event.lng;
@@ -366,62 +380,10 @@ export class HomePage {
 
     //reassign map center after drag
     public setNewCenter(){
-        
         if(this.mapCenterLat && this.mapCenterLng){
             this.mapCenterLat = this.tempMap.lat;
             this.mapCenterLng = this.tempMap.lng;
-        }
-        
-    }
-
-    ngOnInit() {
-
-        console.log(this.mapElement); 
-
-        //this.mapElement.click(()=>{console.log('dsuifv')});
-
-        //set google maps defaults
-        this.zoom = this.zoomLevel;
-        //create search FormControl
-        this.searchControl = new FormControl();
-        
-        //load Places Autocomplete
-        this.mapsAPILoader.load().then(() => {
-        /* let newDragCenter = new google.maps.event;
-        newDragCenter.addListener(map,'idle',() =>{
-
-        }) */
-        let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-            types: ["geocode"],
-            
-        });
-
-        autocomplete.setComponentRestrictions(
-            {
-                'country': ['ie']
-            }
-        );
-
-        autocomplete.addListener("place_changed", () => {
-            this.ngZone.run(() => {
-            //get the place result
-            let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-            //verify result
-            if (place.geometry === undefined || place.geometry === null) {
-                return;
-            }
-            
-            //set latitude, longitude and zoom
-            
-            this.mapCenterLat = place.geometry.location.lat();
-            this.mapCenterLng = place.geometry.location.lng();
-            /* this.lat3 = place.geometry.location.lat();
-            this.long3 = place.geometry.location.lng(); */
-            this.zoom = 12;
-            });
-        });
-        });
+        }   
     }
 
     public markerInfo(item){ 
@@ -429,12 +391,7 @@ export class HomePage {
         this.markerLat = item.lat;
         this.markerLong = item.long;
         this.markerOpen = true;
-        /* this.markerImg = item.img;
-        this.markerName = item.name;
-        this.markerCurrentDeal = item.currentDeal['dealDesc']; */
     }
-
-    
 
     //close info
     public mapClick(ev){
@@ -452,14 +409,11 @@ export class HomePage {
         modal.present();
     }
 
-    returnToPosition(search){
+    public returnToPosition(search){
 
     }
 
     public getCurrentPosition(search){
-        search.value="";
-
-        //console.log(this.searchControl.value);
         this.geolocation.getCurrentPosition().then((resp) => {
         this.mapCenterLat = resp.coords.latitude;
         this.mapCenterLng = resp.coords.longitude;
@@ -469,9 +423,10 @@ export class HomePage {
     }
 
     public resetMap(){
-        this.geolocation.getCurrentPosition().then((resp) => { 
-            this.mapCenterLat = resp.coords.latitude;
-            this.mapCenterLng = resp.coords.longitude;
+        this.geolocation.getCurrentPosition()
+            .then((resp) => { 
+                this.mapCenterLat = resp.coords.latitude;
+                this.mapCenterLng = resp.coords.longitude;
 
         }).catch((error) => {
             console.log('Error getting location', error);
@@ -489,7 +444,6 @@ export class HomePage {
 
     openModal(markerInfo) {
 
-        //this.openLoginModal(); 
         let modal = this.modalCtrl.create(RestModalPage, { markerInfo : markerInfo} );
 
         modal.onDidDismiss(data => {
