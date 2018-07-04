@@ -31,7 +31,6 @@ export class RestModalPage {
     public viewCtrl:ViewController,
     public alertCtrl : AlertController,
     public userService: UserServiceProvider) {
-      console.log(this.navParams.get('markerInfo'), 'B');
       this.markerInfo = this.navParams.get('markerInfo')
       //this.markerInfo = navParams.get('markerInfo');
   }

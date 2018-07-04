@@ -49,6 +49,9 @@
     [styles]="styles"
     [streetViewControl]="false"
     [zoomControl]="false"
+    (centerChange)="trackCenter($event)"
+    (idle) = "setNewCenter()"
+    
     #map
     (mapClick)="mapClick($event, infoWindow)"
   >
@@ -105,7 +108,7 @@
       [longitude]="item.long"
       [iconUrl]="custom_marker"
       #marker
-      (markerClick) = "hello(item)"
+      (markerClick) = "markerInfo(item)"
     >
     <!-- INFO WINDOW -->
     <!-- <agm-info-window #infoWindow style="padding:0px;">

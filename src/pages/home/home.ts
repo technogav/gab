@@ -304,6 +304,7 @@ export class HomePage {
     mapCenterLat: number;
     currentLocLat: number;
     currentLocLng: number;
+    tempMap : { lat: number, lng:number };
    
     infoWindowOpening(){
         console.log('owej');
@@ -332,6 +333,7 @@ export class HomePage {
         this.mapCenterLng = resp.coords.longitude;
         this.currentLocLat = resp.coords.latitude;
         this.currentLocLng = resp.coords.longitude;
+        this.tempMap = { lat: resp.coords.latitude, lng: resp.coords.longitude };
     
         
         }).catch((error) => {
@@ -353,7 +355,31 @@ export class HomePage {
 
     }//end constructor
 
+    //track drag center
+    public trackCenter(event){
+        //set new center
+        if(event){
+            this.tempMap['lat'] = event.lat;
+            this.tempMap['lng'] = event.lng;
+        }
+    }
+
+    //reassign map center after drag
+    public setNewCenter(){
+        
+        if(this.mapCenterLat && this.mapCenterLng){
+            this.mapCenterLat = this.tempMap.lat;
+            this.mapCenterLng = this.tempMap.lng;
+        }
+        
+    }
+
     ngOnInit() {
+
+        console.log(this.mapElement); 
+
+        //this.mapElement.click(()=>{console.log('dsuifv')});
+
         //set google maps defaults
         this.zoom = this.zoomLevel;
         //create search FormControl
@@ -361,6 +387,10 @@ export class HomePage {
         
         //load Places Autocomplete
         this.mapsAPILoader.load().then(() => {
+        /* let newDragCenter = new google.maps.event;
+        newDragCenter.addListener(map,'idle',() =>{
+
+        }) */
         let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
             types: ["geocode"],
             
@@ -394,10 +424,8 @@ export class HomePage {
         });
     }
 
-    public hello(item){
-        console.log('item', item);
+    public markerInfo(item){ 
         this.item = item;
-
         this.markerLat = item.lat;
         this.markerLong = item.long;
         this.markerOpen = true;
@@ -411,7 +439,7 @@ export class HomePage {
     //close info
     public mapClick(ev){
         console.log(ev);
-        //close any info window window if open   
+        this.markerOpen = !this.markerOpen;
     }
 
     //if not logged in open login modal
@@ -419,28 +447,20 @@ export class HomePage {
         let modal = this.modalCtrl.create(LoginModalPage );
 
         modal.onDidDismiss(data => {
-            console.log("close info window?");
             //this.infoWindowOpen = !this.infoWindowOpen 
         });
         modal.present();
     }
 
     returnToPosition(search){
-        console.log(search);
 
     }
 
     public getCurrentPosition(search){
-        console.log('search');
         search.value="";
 
         //console.log(this.searchControl.value);
         this.geolocation.getCurrentPosition().then((resp) => {
-
-            console.log(resp.coords.latitude);
-            console.log(resp.coords.longitude);
-            console.log(6);
- 
         this.mapCenterLat = resp.coords.latitude;
         this.mapCenterLng = resp.coords.longitude;
         }).catch((error) => {
@@ -449,9 +469,7 @@ export class HomePage {
     }
 
     public resetMap(){
-        console.log("kofkope")
         this.geolocation.getCurrentPosition().then((resp) => { 
-            console.log("lat")
             this.mapCenterLat = resp.coords.latitude;
             this.mapCenterLng = resp.coords.longitude;
 
@@ -470,12 +488,12 @@ export class HomePage {
     }
 
     openModal(markerInfo) {
-        console.log(markerInfo, 'A');
+
         //this.openLoginModal(); 
         let modal = this.modalCtrl.create(RestModalPage, { markerInfo : markerInfo} );
 
         modal.onDidDismiss(data => {
-        //console.log("close info window?");
+
         this.infoWindowOpen = !this.infoWindowOpen    
         });
         modal.present();
