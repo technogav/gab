@@ -6,7 +6,7 @@
       </button>
     </ion-buttons>
   </ion-navbar>  
-  <ion-toolbar style="background:white;">
+  <ion-toolbar style="background:green;">
     
     <div float-left id="search_icon_bg">
         <ion-icon name="search" id="search_icon"></ion-icon>
@@ -71,17 +71,18 @@
     >   
     <ng-template>
       <div style="width: 250px; position:relative; height:auto; margin-top: 0px;    margin-bottom:4px; padding:0px;">
-        <img width="100%" src="{{markerImg}}" alt="">
-        <div text-center><strong>{{markerName}}</strong></div>
+        <img width="100%" src="{{item.img}}" alt="">
+            
+        <div text-center><strong>{{item.name}}</strong></div>
         <ion-grid>
           <ion-row>
             <ion-col>
-                <div text-center>{{markerCurrentDeal}}</div>
+                <div text-center>{{item.currentDeal.dealDesc}}</div>
             </ion-col>   
           </ion-row>
           <ion-row>
             <ion-col>
-              <button (click)="openLoginModal()" ion-button full>Details</button>
+              <button (click)="openModal(item)" ion-button full>Details</button>
             </ion-col>
           </ion-row>
         </ion-grid>

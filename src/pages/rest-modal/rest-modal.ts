@@ -18,6 +18,7 @@ import { UserServiceProvider } from '../../providers/user-service/user-service';
 })
 export class RestModalPage {
 
+  public markerInfo: any;
   reservationForm = new FormGroup({
     'date': new FormControl(),
     'time': new FormControl()
@@ -30,10 +31,13 @@ export class RestModalPage {
     public viewCtrl:ViewController,
     public alertCtrl : AlertController,
     public userService: UserServiceProvider) {
+      console.log(this.navParams.get('markerInfo'), 'B');
+      this.markerInfo = this.navParams.get('markerInfo')
+      //this.markerInfo = navParams.get('markerInfo');
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad RestModalPage');
+    
   }
 
   dismiss(bool) {

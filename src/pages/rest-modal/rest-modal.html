@@ -19,13 +19,15 @@
 <ion-content padding>
 
   <!-- <img src="img/advance-card-map-madison.png"> -->
-  <h3>Bimbo's Bitchin Burretos</h3>
-  <div style="width:100%; height:160px; background:lightgrey"></div>
+  <h3>{{markerInfo.name}}</h3>
+  <div style="width:100%; height:160px; background:lightgrey; overflow:hidden">
+    <img width="100%" src="{{markerInfo.img}}" alt="">
+  </div>
   <button ion-button color="primary" full (click)="showAlert()">Menu</button>
 
   
-  <h4>Buy one get one free!</h4>
-  <p>Buy any burreto and etthe second on us.</p>
+  <h4>{{markerInfo.currentDeal.dealName}}</h4>
+  <p>{{markerInfo.currentDeal.dealDesc}}</p>
   
 
   <form [formGroup]="reservationForm" (ngSubmit)="onSubmit()">

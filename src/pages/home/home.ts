@@ -32,6 +32,7 @@ import { LoginModalPage } from '../login-modal/login-modal';//if click rest deta
 
 export class HomePage {
 
+    item: any;
     @ViewChild("search")public searchElementRef: ElementRef;  
     @ViewChild('map')mapElement: ElementRef;
 
@@ -394,13 +395,15 @@ export class HomePage {
     }
 
     public hello(item){
-        console.log(item);
+        console.log('item', item);
+        this.item = item;
+
         this.markerLat = item.lat;
         this.markerLong = item.long;
         this.markerOpen = true;
-        this.markerImg = item.img;
+        /* this.markerImg = item.img;
         this.markerName = item.name;
-        this.markerCurrentDeal = item.currentDeal['dealDesc'];
+        this.markerCurrentDeal = item.currentDeal['dealDesc']; */
     }
 
     
@@ -446,8 +449,9 @@ export class HomePage {
     }
 
     public resetMap(){
+        console.log("kofkope")
         this.geolocation.getCurrentPosition().then((resp) => { 
-
+            console.log("lat")
             this.mapCenterLat = resp.coords.latitude;
             this.mapCenterLng = resp.coords.longitude;
 
@@ -465,14 +469,16 @@ export class HomePage {
         modal.present();
     }
 
-    openModal() {
-        this.openLoginModal(); 
-        /* let modal = this.modalCtrl.create(RestModalPage );
+    openModal(markerInfo) {
+        console.log(markerInfo, 'A');
+        //this.openLoginModal(); 
+        let modal = this.modalCtrl.create(RestModalPage, { markerInfo : markerInfo} );
+
         modal.onDidDismiss(data => {
         //console.log("close info window?");
         this.infoWindowOpen = !this.infoWindowOpen    
         });
-        modal.present(); */
+        modal.present();
     }
 
     
