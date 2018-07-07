@@ -109,20 +109,56 @@ export class GeoServiceProvider {
       'img' : '/assets/imgs/riverBank.jpg',
       'desc' : 'Riverbank Arts Centre hosts a programme of local, national and international productions including theatre, music, opera, comedy and visual arts. The venue comprises of a 180 seat auditorium, Children’s Gallery, McKenna Gallery, a contemporary gallery hosting both local national and international artists,  and a café. ',
       'currentDeal' : {
-        'id': '1', 'name': 
-        'Summer Madness', 
+        'id': '1', 'name': 'Summer Madness', 
         'dealDesc' : 'Admission for two to see Mama Mia and two free coffee just €20',
         'conditions': 'You must present the your booking to the staff upon arrival through our QR code that will be generated. Deal is only valid between the specified times.', 'startTime': '09:00', 
         'endTime': '22:00', 
         'startDate': '5th May 2018', 
         'endDate' : '6th May 2018', 
-        'weeklyRecurring': false}
+        'weeklyRecurring': false,
+        'bookings' : {},
+        'viewed' : 0,
+        'whoViewed' : {}
+      }
     }
     
     
     
   ];
 
+
+  private markers: Array<any> = [
+    {
+      'id': 12345,
+      'name': 'River Bank Theater',
+      'desc': 'Riverbank Arts Centre hosts a programme of local, national and international productions including theatre, music, opera, comedy and visual arts. The venue comprises of a 180 seat auditorium, Children’s Gallery, McKenna Gallery, a contemporary gallery hosting both local national and international artists,  and a café. ',
+      'lat': 53.18202979360638,
+      'long': -6.79446068902007,
+      'logoUrl' : '/assets/imgs/riverBank.jpg',
+      'img' : '/assets/imgs/riverBank.jpg',
+      'currentDeal' : {
+          'id': 76543,
+          'numberAvailable' : 12,
+          'numberTaken' : 2,
+          'dateFrom' : '12/12/2018',
+          'dateTo' : '14/12/2018',
+          'timeFrom' : '09:00',
+          'timeTo' : '15:00',
+          'bookings' : [
+            {
+              'userId' : 1,
+              'bookedDate' : '13/12/2018',
+              'bookedTime' : '12:00'
+            }
+          ]
+        },
+        'reviews' : [{}],
+        'deals' : [{}],
+        'area' : 'newbridge',
+        'type' : 'entertainment',
+        'foodType' : null
+    }
+  ]
   public getRests(){
     return this.rests;
   }

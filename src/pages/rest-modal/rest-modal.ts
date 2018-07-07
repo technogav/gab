@@ -24,6 +24,7 @@ export class RestModalPage {
     'time': new FormControl()
   });
   showT: boolean;
+  user: {};
 
   constructor(
     public navCtrl: NavController, 
@@ -32,7 +33,10 @@ export class RestModalPage {
     public viewCtrl:ViewController,
     public alertCtrl : AlertController,
     public userService: UserServiceProvider) {
-      this.markerInfo = this.navParams.get('markerInfo')
+      this.markerInfo = this.navParams.get('markerInfo');
+      this.user = this.navParams.get('user');
+
+      //console.log('this.user', this.user.dealsAquired);
       //this.markerInfo = navParams.get('markerInfo');
   }
 
@@ -61,15 +65,27 @@ export class RestModalPage {
 
   onSubmit(){
 
-    this.userService.reservation(this.reservationForm.value);
+    this.userService.reservation(this.reservationForm.value)
   }
 
 
   reserve() {
 
+    this.markerInfo['bookedDate'] = this.reservationForm.value.date;
+    this.markerInfo['bookedTime'] = this.reservationForm.value.time;
+
+    this.userService.user = this.user;
+    
+
+    this.user['dealsAquired'].push(this.markerInfo);
+    //this.markerInfo.bookings.push(this.user)
     let modal = this.modalCtrl.create(BookingModalPage,{
-      'date' : this.reservationForm.value.date,
-      'time' : this.reservationForm.value.time
+
+      markerInfo : this.markerInfo,
+      user: this.user
+      
+      /* 'date' : this.reservationForm.value.date,
+      'time' : this.reservationForm.value.time */
     });
 
     modal.onDidDismiss(data => {

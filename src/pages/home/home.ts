@@ -13,6 +13,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { GeoServiceProvider } from '../../providers/geo-service/geo-service';
 import { FilterModalPage } from '../filter-modal/filter-modal';
 import { LoginModalPage } from '../login-modal/login-modal';//if click rest details & logged 
+import { User } from '../../models/userModal';
+import { UserServiceProvider } from '../../providers/user-service/user-service';
 
 @Component({
   selector: 'page-home',
@@ -27,7 +29,8 @@ export class HomePage {
 
     public infoWindowOpen: boolean = false;
     public items: Observable<any[]>;
-    public rests= this.GeoService.getRests();
+    //public rests= this.GeoService.getRests();
+    public rests;
     public searchControl: FormControl;
     public zoom: number;
     public lat3: any;
@@ -293,6 +296,16 @@ export class HomePage {
     mapCenterLat: number;
     currentLocLat: number;
     currentLocLng: number;
+    user = {
+        name: 'Gavin' ,
+        email:'gavinmurphy00101@gmail.com',
+        phone:'0871234556',
+        area: 'Newbridge' ,
+        top5: [],
+         last5: [],
+        dealsAquired: [],
+        settingsPref: []
+    }
     
     tempMap : { lat: number, lng:number };
    
@@ -306,11 +319,17 @@ export class HomePage {
         private mapsAPILoader: MapsAPILoader,
         private GeoService : GeoServiceProvider,
         private ngZone: NgZone,
-        //private auth: AuthServiceProvider
+        private userService : UserServiceProvider
+       
         ){ 
         //this.items = db.collection('items').valueChanges(); 
-        
-        
+        let markerCollection$ = userService.getMarkers()
+        markerCollection$.subscribe(data => {
+            this.rests = data;
+            
+         } );
+         
+
         //this.showAlert();
         //this.openModal();
         this.geolocation.getCurrentPosition()
@@ -444,7 +463,10 @@ export class HomePage {
 
     openModal(markerInfo) {
 
-        let modal = this.modalCtrl.create(RestModalPage, { markerInfo : markerInfo} );
+        let modal = this.modalCtrl.create(RestModalPage, { 
+            markerInfo : markerInfo,
+            user: this.user
+        } );
 
         modal.onDidDismiss(data => {
 

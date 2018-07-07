@@ -16,8 +16,10 @@ import { IonicPage, NavController, NavParams, ViewController, AlertController } 
 export class BookingModalPage {
 
   isBooked:boolean =true;
-  bookingDate: string = this.params.get('date');
-  bookingTime: string = this.params.get('time');
+  markerInfo : {} = this.params.get('markerInfo');
+  user : {} = this.params.get('user');
+  /* bookingDate: string = this.params.get('date');
+  bookingTime: string = this.params.get('time'); */
 
   constructor(
     public navCtrl: NavController, 
@@ -25,6 +27,7 @@ export class BookingModalPage {
     public viewCtrl: ViewController,
     public alertCtrl: AlertController,
     public params: NavParams) {
+      console.log(222,params.get('markerInfo'))
   }
 
   ionViewDidLoad() {

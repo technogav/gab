@@ -7,16 +7,24 @@
 </ion-header>
 
 <ion-content padding>
-  <div style="width:100%; height:160px; background:lightgrey; overflow:hidden">
+  <div style="width:100%; height:160px; overflow:hidden">
     <img width="100%" src="{{markerInfo.img}}" alt="marker Image">
   </div>
   <h3 text-center>{{markerInfo.name}}</h3>
 
   
-  <h4>{{markerInfo.currentDeal.name}}</h4>
+  <h4>{{markerInfo.currentDeal.name}}</h4><span><button ion-button small outline>Book Now</button></span>
   <h3>{{markerInfo.currentDeal.dealDesc}}</h3>
+  <span float-right>{{markerInfo.currentDeal.numberTaken}}/{{markerInfo.currentDeal.numberAvailable}} Deals Left</span>
+  
+  <p>Tuesday 25th March 2018<br>
+  Between 9:00 - 17:00</p>
   <p style="color: grey">{{markerInfo.currentDeal.conditions}}</p>
-  <button ion-button small (click)="fullConditions()">Full Conditions</button>
+  <div style="color:blue; border-bottom:1px solid blue; padding-bottom:20px;">read full conditions</div>
+  <div style="width:100%; height:120px; background:lightgrey;">
+    
+  </div>
+  
   <p>{{markerInfo.desc}}</p>
   
   <!-- <form *ngIf="markerInfo.type === 'entertainment'">
@@ -52,13 +60,13 @@
     </ion-list>
   </form> -->
 
-  <form *ngIf="markerInfo.type === 'restaurant'" [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
+  <form  [formGroup]="reservationForm" (ngSubmit)="onSubmit()">
     <ion-list>
       <ion-item >
         <ion-label>Date</ion-label>
         <ion-datetime displayFormat="MMM/DD/YYYY" formControlName="date"></ion-datetime>
       </ion-item>
-      <ion-item>
+      <ion-item *ngIf="markerInfo.type === 'restaurant'">
         <ion-label>Time</ion-label>
         <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm"formControlName="time"></ion-datetime>
       </ion-item>
@@ -80,6 +88,6 @@
       </span>  
     </button>-->
 
-    <button ion-button color="primary" full (click)="reserve()" type="submit">Book Now</button> 
+    <button ion-button color="primary" full (click)="reserve()" type="submit">Nab a deal now!</button> 
 
 </ion-content>

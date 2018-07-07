@@ -22,9 +22,9 @@
     <ion-item>You have successfully booked your Deal!</ion-item>
 
     <ion-item>
-      <p><strong>Booked at: Gavins Grub</strong></p>
-      <p><strong>Booking Time: {{bookingTime}}</strong> </p>
-      <p><strong>Booking Date: {{bookingDate}}</strong></p>
+      <p><strong>Booked at: {{markerInfo.name}} </strong></p>
+      <p *ngIf="markerInfo.type === 'restaurant'"><strong>Booking Time: {{markerInfo.bookedTime}}</strong> </p>
+      <p><strong>Booking Date: {{markerInfo.bookedDate}}</strong></p>
     <ion-item>We have emialed/texted you your booking code.<p>Please present this before making your order.</p></ion-item>
     
       <h1>Ref : BKR00254</h1>
