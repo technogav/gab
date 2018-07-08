@@ -104,7 +104,7 @@
     >
     </agm-marker>
     <agm-marker 
-      *ngFor="let item of rests; let i = index" 
+      *ngFor="let item of rests | async; let i = index" 
       [latitude]="item.lat" 
       [longitude]="item.long"
       [iconUrl]="custom_marker"

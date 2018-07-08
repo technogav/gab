@@ -21,8 +21,10 @@ import { map } from "rxjs/operators";
 @Injectable()
 export class UserServiceProvider implements OnInit{
 
-  document: AngularFirestoreDocument<any>;
   markerCollection$: Observable<Item[]>;
+  
+  markerDoc : AngularFirestoreDocument<Item>
+  markerDoc$ : Observable<Item[]>;
   userCollection$ : Observable<Item[]>;
   snapshot: any;
   
@@ -39,6 +41,9 @@ export class UserServiceProvider implements OnInit{
     phone: '087 736 8998'
   };
   todo: Observable<void[]>;
+  userDoc: AngularFirestoreDocument<{}>;
+  userDoc$: Observable<Item[]>;
+  userDeals: Array<any> = [];
 
   constructor(private afs: AngularFirestore) {
     const firestore = firebase.firestore();
@@ -61,9 +66,15 @@ export class UserServiceProvider implements OnInit{
 
     this.markerCollection = this.afs.collection('markers');
     this.markerCollection$ = this.markerCollection.valueChanges();
+    ;
+    this.markerDoc = this.afs.doc('markers/WM12uDMX1RGEKdgICg5b');
+    this.markerDoc$ = this.markerCollection.valueChanges();
 
     this.userCollection = this.afs.collection('users');
     this.userCollection$ = this.userCollection.valueChanges();
+
+    this.userDoc = this.afs.doc('users/9smhOJNtC19sod8cAjb0');
+    this.userDoc$ = this.userCollection.valueChanges();
 
    /*  this.userCollection.add({
       'name' : 'Gavin',
@@ -76,6 +87,10 @@ export class UserServiceProvider implements OnInit{
       'favorites' : [],
       'reviews' : []
     }) */
+
+   /*  */
+
+   
 
     this.markerCollection.snapshotChanges()
       .pipe(map(arr => {
@@ -114,9 +129,27 @@ export class UserServiceProvider implements OnInit{
     return this.markerCollection$;
   }
 
+  getMarkerDoc(){
+    return this.markerDoc;
+  }
+
+  getDocObs(){
+    return this.markerDoc$;
+  }
+
   getUser(){
+    return this.userCollection;
+  }
+
+  getUserObs(){
     return this.userCollection$;
   }
+
+  getUserDoc(){
+    return this.userDoc 
+  }
+
+  
 
   saveUser(data){
     console.log("service", data);

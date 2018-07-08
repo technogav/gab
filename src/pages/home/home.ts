@@ -323,11 +323,13 @@ export class HomePage {
        
         ){ 
         //this.items = db.collection('items').valueChanges(); 
-        let markerCollection$ = userService.getMarkers()
+        /* let markerCollection$ = userService.getMarkers()
         markerCollection$.subscribe(data => {
-            this.rests = data;
+            this.rests = data; 
             
-         } );
+         } );*/
+
+         this.rests = userService.getMarkers();
          
 
         //this.showAlert();
