@@ -23,43 +23,86 @@
 </ion-header>
 
 <ion-content>
+  
+<div *ngIf="showArchived">
+  <div *ngFor="let item of myDeals"><!--  -->
 
-  <ion-card>
+    <ion-card *ngIf="(today | date:'dd/MM/yyyy') <= (item.bookedDate | date:'dd/MM/yyyy')">
+    
+      <!-- <img src="img/advance-card-map-madison.png"> -->
+      <div style="width:100%; height:auto; background:lightgrey; overflow:hidden">
+        <img width="100%" src="/assets/imgs/restaurant_inside.jpg" alt="Restaurant interior image">
+      </div>
+        <ion-grid>
+          <ion-row>
+            <ion-col col-10>
+                <h1 text-center>{{item.name}}</h1>
+                <p text-center>{{item.area}}</p>
+                <p text-center>
+                  <strong>{{item.currentDeal.dealDesc}}</strong>
+                </p>
+                <p style="margin-top: 40px;">
+                  Booked for <span style="color:red;">Tuesday 25th March at 5:00pm.</span>
+                </p>
+            </ion-col>
+            <ion-col col-2>
+              <button ion-button clear float-right large>
+                <ion-icon name="alarm" icon-end large (click)="ratePlace()"></ion-icon>
+              </button><br>
+              <button ion-button clear float-right large>
+                <ion-icon name="star" icon-end large (click)="ratePlace()"></ion-icon>
+              </button>
+              <button ion-button clear float-right large (click)="ratePlace()">
+                <ion-icon name="call" icon-end large></ion-icon>
+              </button>
+            </ion-col>
+          </ion-row>  
+        </ion-grid>
+      <ion-item>
+        <button ion-button icon-left full>
+          <ion-icon name="navigate"></ion-icon>
+          Directions
+        </button>
+      </ion-item>
+    </ion-card>
+  </div>
+</div>
+
+<div *ngIf="!showArchived">   
+  
+   
+  <ion-card *ngFor="let item of myDeals">    
     <!-- <img src="img/advance-card-map-madison.png"> -->
     <div style="width:100%; height:auto; background:lightgrey; overflow:hidden">
       <img width="100%" src="/assets/imgs/restaurant_inside.jpg" alt="Restaurant interior image">
     </div>
-      <ion-grid>
-        
-
-        <ion-row>
-          <ion-col col-10>
-              <h1 text-center>Gavins Grub</h1>
-              <p text-center>Main Street Newbridge, Kildare</p>
-
-            <p text-center><strong>Early bird special. 10% off any meal and a free bottle of wine!</strong>
-              
-            </p>
-            <p style="margin-top: 40px;">
-              Booked for <span style="color:red;">Tuesday 25th March at 5:00pm.</span>
-            </p>
-
-          </ion-col>
-          <ion-col col-2>
-            <button ion-button clear float-right large>
-              <ion-icon name="alarm" icon-end large (click)="ratePlace()"></ion-icon>
-            </button><br>
-            <button ion-button clear float-right large>
-              <ion-icon name="star" icon-end large (click)="ratePlace()"></ion-icon>
-            </button>
-            <button ion-button clear float-right large (click)="ratePlace()">
-              <ion-icon name="call" icon-end large></ion-icon>
-            </button>
-          </ion-col>
-        </ion-row>
-        
-      </ion-grid>
-      
+    <ion-grid>
+      <ion-row>
+        <ion-col col-10>
+          <h1 text-center>{{item.name}}</h1>
+          <p text-center>{{item.area}}</p>
+          <p text-center>
+            <strong>{{item.currentDeal.dealDesc}}</strong>
+          </p>
+          <p style="margin-top: 40px;">
+            Booked for <span style="color:red;">Tuesday 25th March at 5:00pm.</span>
+          </p>
+        </ion-col>
+        <ion-col col-2>
+          <button ion-button clear float-right large>
+            <ion-icon name="alarm" icon-end large (click)="ratePlace()"></ion-icon>
+          </button><br>
+          <button ion-button clear float-right large>
+            <ion-icon name="star" icon-end large (click)="ratePlace()"></ion-icon>
+          </button>
+          <button ion-button clear float-right large (click)="ratePlace()">
+            <ion-icon name="call" icon-end large></ion-icon>
+          </button>
+        </ion-col>
+      </ion-row>
+            
+    </ion-grid>
+          
     <ion-item>
       <button ion-button icon-left full>
         <ion-icon name="navigate"></ion-icon>
@@ -67,41 +110,8 @@
       </button>
     </ion-item>      
   </ion-card>
-  <ion-card>
+</div>
 
-    <!-- <img src="img/advance-card-map-madison.png"> -->
-    <div style="width:100%; height:auto; background:lightgrey; overflow:hidden">
-      <img width="100%" src="/assets/imgs/restaurant_inside.jpg" alt="Restaurant interior image">
-    </div>
-      
-    <ion-item>
-      <button ion-button clear float-right large>
-        <ion-icon name="alarm" icon-end large></ion-icon>
-      </button><br>
-      <button ion-button clear float-right large (click)="ratePlace()">
-        <ion-icon name="star" icon-end large ></ion-icon>
-      </button>  
-      <h1>Good Eats</h1>
-      <p>Main Street Newbridge, Kildare</p>
-    </ion-item>
-      
-    <ion-item>
-      <button ion-button clear float-right large (click)="openAlert('call')">
-        <ion-icon name="call" icon-end large></ion-icon>
-      </button>
-      <h3>Title</h3>
-      <p><strong>Name - </strong>
-        <span style="color:#444"><i>Main Street Newbridge, Kildare</i></span>
-      </p>
-    </ion-item>
-      
-    <ion-item>
-      <button ion-button icon-left full>
-        <ion-icon name="navigate"></ion-icon>
-        Directions
-      </button>
-    </ion-item>
-      
-  </ion-card>
+  
   
 </ion-content>

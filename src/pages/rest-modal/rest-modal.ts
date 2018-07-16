@@ -56,10 +56,10 @@ export class RestModalPage {
         this.numberAvailable = data[0]['currentDeal'].numberAvailable;
         this.currentDeal = data[0]['currentDeal'];
         //this.deals = data[0]['deals'];
+        this.deals = data[0]['deals'];
       });
 
       this.userData = this.userService.getUserObs().subscribe((data) =>{
-        console.log(data[0]['myDeals']);
         this.userDeals = data[0]['myDeals'];
         this.user = data[0];
       })
@@ -72,11 +72,7 @@ export class RestModalPage {
   }
 
   ionViewDidEnter(){
-    this.dealsData = this.userService.getDocObs().subscribe((data) =>{
-      
-      this.deals = data[0]['deals'];
-      console.log('deals',this.deals)
-    });
+    
   }
 
   ionViewWillEnter() {
@@ -84,12 +80,13 @@ export class RestModalPage {
     this.userDoc = this.userService.getUserDoc();
     this.markerDoc = this.userService.getMarkerDoc();
     
+    
   }
 
   ionViewWillLeave(){
    this.documentData.unsubscribe();
    this.userData.unsubscribe();
-   this.dealsData.unsubscribe();
+   //this.dealsData.unsubscribe();
   }
 
   dismiss(bool) {
@@ -113,24 +110,32 @@ export class RestModalPage {
 
 
   reserve() {
-    this.markerInfo['bookedDate'] = this.reservationForm.value.date;
-    this.markerInfo['bookedTime'] = this.reservationForm.value.time;
-
-    //push deal on to my-deals
-    this.userDeals.push(this.markerInfo);
-    //push on booking to current-deal
-    this.currentDeal.bookings.push({
-      name: this.user.name + ' ' + this.user.surname,
-      phone: this.user.phone,
-      email: this.user.email,
-      dateBooked: this.reservationForm.value.date,
-      timeBooked: this.reservationForm.value.time, 
-    })
+    console.log("reserve", this.numberTaken)
     
-    if (this.numberTaken <= this.numberAvailable){
-        this.numberTaken = this.numberTaken + 1;
 
-        
+    
+
+    if (this.numberTaken < this.numberAvailable){
+        this.numberTaken = this.numberTaken + 1;
+        console.log("reserve", this.numberTaken)
+        console.log(222, this.user.name, this.user.surname,this.user.phone, this.user.email, this.numberTaken, this.numberAvailable);
+
+        //console.log(this.reservationForm.value.date, this.reservationForm.value.time);
+
+        //this.markerInfo['bookedDate'] = this.reservationForm.value.date;
+       //this.markerInfo['bookedTime'] = this.reservationForm.value.time;
+
+        //push deal on to my-deals
+        this.userDeals.push(this.markerInfo);
+        //push on booking to current-deal
+        this.currentDeal.bookings.push({
+          name: this.user.name + ' ' + this.user.surname,
+          phone: this.user.phone,
+          email: this.user.email,
+          dateBooked: this.reservationForm.value.date,
+          timeBooked: this.reservationForm.value.time, 
+        })
+
 
         //this.currentDeal
         //push changes to cloud
@@ -140,26 +145,27 @@ export class RestModalPage {
         });
         this.userDoc.update({
           'myDeals' : this.userDeals
-        });
+        }); 
 
       
     } else{
+      console.log("else");
       //delete currentDeal
       //this.currentDeal
       //push currentdeal to deals with timestamp and tracking tag (obj)
       //this.currentDeal.push()
-      console.log('else');
 
-      this.markerDoc.update({
-        'currentDeal.numberTaken' : 0     
-      });
-
-      /* this.deals.push(this.markerInfo);
-
-      this.markerDoc.update({
-        'deals' : this.deals
-         
+      /* this.markerDoc.update({
+        'currentDeal.numberTaken' : 10
       }); */
+
+      //this.deals.push(this.markerInfo);
+      console.log(this.deals);
+
+      this.markerDoc.update({
+        'myDeals' : this.deals,
+        'currentDeal.numberTaken' : 10
+      }); 
     }
 
     

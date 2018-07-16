@@ -18,6 +18,12 @@ export class ReservationsPage {
     'phone' : new FormControl(),
     'area' : new FormControl()
   });
+  userData: any;
+  userDeals: any;
+  user: any;
+  myDeals: Array<any>;
+  today: Date;
+  showArchived: boolean = true;
 
   constructor(
     public navCtrl: NavController,
@@ -25,6 +31,24 @@ export class ReservationsPage {
     public alertCtrl : AlertController
     /* public user: User */
     ) {
+      this.userData = this.userService.getUserObs();
+      this.today = new Date();
+      console.log("today", this.today);
+      
+      this.userData.subscribe((data)=>{
+        console.log("this", data[0].myDeals);
+        console.log(data[0].myDeals);
+        this.myDeals = data[0].myDeals;
+        console.log(this.myDeals[2].bookedDate)
+      })
+
+  }
+
+  unsubscribe(){
+    this.userData.unsubscribe();
+  }
+
+  ionViewDidLeave(){
 
   }
 
