@@ -68,7 +68,7 @@
       </ion-item>
       <ion-item *ngIf="markerInfo.type === 'restaurant'">
         <ion-label>Time</ion-label>
-        <ion-datetime displayFormat="HH:mm" pickerFormat="HH:mm"formControlName="time"></ion-datetime>
+        <ion-datetime displayFormat="HH:mm" (ngChange)="acceptDate()" pickerFormat="HH:mm"formControlName="time"></ion-datetime>
       </ion-item>
     </ion-list>
   
@@ -88,6 +88,6 @@
       </span>  
     </button>-->
 
-    <button ion-button color="primary" full (click)="reserve()" type="submit">Nab a deal now!</button> 
+    <button ion-button color="primary" full (disabled)="!allowBooking" (click)="reserve()" type="submit">Nab a deal now!</button> 
 
 </ion-content>

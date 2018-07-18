@@ -1,15 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ModalController, ViewController,        AlertController } from 'ionic-angular';
 import { BookingModalPage } from '../booking-modal/booking-modal';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 
-/**
- * Generated class for the RestModalPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -38,7 +32,7 @@ export class RestModalPage {
   userDeals: Array<any> = [];
   deals: any;
   dealsData: any;
-
+  allowBooking: boolean = false;
 
   constructor(
     public navCtrl: NavController, 
@@ -55,17 +49,19 @@ export class RestModalPage {
         this.numberTaken = data[0]['currentDeal'].numberTaken;
         this.numberAvailable = data[0]['currentDeal'].numberAvailable;
         this.currentDeal = data[0]['currentDeal'];
-        //this.deals = data[0]['deals'];
         this.deals = data[0]['deals'];
       });
 
-      this.userData = this.userService.getUserObs().subscribe((data) =>{
+        this.userData = this.userService.getUserObs().subscribe((data) =>{
         this.userDeals = data[0]['myDeals'];
         this.user = data[0];
+        console.log("constructor", this.user);
       })
   }
 
-
+  public acceptDate(){
+    this.allowBooking = true;
+  }
 
   showTimes(){
     this.showT = !this.showT;
@@ -75,18 +71,14 @@ export class RestModalPage {
     
   }
 
-  ionViewWillEnter() {
-    
+  ionViewWillEnter() { 
     this.userDoc = this.userService.getUserDoc();
-    this.markerDoc = this.userService.getMarkerDoc();
-    
-    
+    this.markerDoc = this.userService.getMarkerDoc();  
   }
 
   ionViewWillLeave(){
    this.documentData.unsubscribe();
    this.userData.unsubscribe();
-   //this.dealsData.unsubscribe();
   }
 
   dismiss(bool) {
@@ -104,52 +96,100 @@ export class RestModalPage {
   }
 
   onSubmit(){
-
     this.userService.reservation(this.reservationForm.value)
   }
 
-
   reserve() {
-    console.log("reserve", this.numberTaken)
-    
 
+    if (!this.reservationForm.value.date) return;
+   
     
-
     if (this.numberTaken < this.numberAvailable){
         this.numberTaken = this.numberTaken + 1;
-        console.log("reserve", this.numberTaken)
-        console.log(222, this.user.name, this.user.surname,this.user.phone, this.user.email, this.numberTaken, this.numberAvailable);
 
-        //console.log(this.reservationForm.value.date, this.reservationForm.value.time);
 
         //this.markerInfo['bookedDate'] = this.reservationForm.value.date;
        //this.markerInfo['bookedTime'] = this.reservationForm.value.time;
 
         //push deal on to my-deals
-        this.userDeals.push(this.markerInfo);
+        
+        //temporarily take out anything after last 5
+        if (this.userDeals.length > 4){
+          this.userDeals.shift();
+        }
+
+        console.log("push1", this.userDeals);
+
+        this.userDeals.push({
+          dealDesc : this.markerInfo.currentDeal.dealDesc ,
+          dealId : this.markerInfo.currentDeal.id,
+          dealName : this.markerInfo.currentDeal.name,
+          dealTimeStart : this.markerInfo.currentDeal.timeFrom,
+          dealTimeEnd : this.markerInfo.currentDeal.timeTo,
+          description: this.markerInfo.desc,
+          id : this.markerInfo.id,
+          img :  this.markerInfo.img,
+          logoUrl : this.markerInfo.logoUrl,
+          lat: this.markerInfo.lat,
+          lng : this.markerInfo.long,
+          phone : '001011',
+          bookedDate: this.reservationForm.value.date,
+          timeBooked: this.reservationForm.value.time,
+          placeName: this.markerInfo.name,
+          area : this.markerInfo.area 
+        });
+        
         //push on booking to current-deal
-        this.currentDeal.bookings.push({
-          name: this.user.name + ' ' + this.user.surname,
-          phone: this.user.phone,
-          email: this.user.email,
-          dateBooked: this.reservationForm.value.date,
-          timeBooked: this.reservationForm.value.time, 
-        })
+        //console.log(this.user.name, this.user.surname )
 
+        console.log("push2", this.user);
 
-        //this.currentDeal
-        //push changes to cloud
+        if(this.user){
+
+          if (this.currentDeal.bookings.length > 4){
+            this.currentDeal.bookings.shift();
+          }
+
+          this.currentDeal.bookings.push({
+            name: this.user.name + ' ' + this.user.surname,
+            phone: this.user.phone,
+            email: this.user.email,
+            dateBooked: this.reservationForm.value.date,
+            timeBooked: this.reservationForm.value.time
+          })
+        }else{
+          alert("fuckty");
+        }
+
+        
+        
+
         this.markerDoc.update({
           'currentDeal.numberTaken' : this.numberTaken,
           'currentDeal.bookings' : this.currentDeal.bookings  
         });
+
         this.userDoc.update({
           'myDeals' : this.userDeals
         }); 
 
+        let modal = this.modalCtrl.create(BookingModalPage,{
+
+          markerInfo : this.markerInfo,
+          user: this.user
+    
+        });
+    
+        modal.onDidDismiss(data => {
+          
+          data?  this.dismiss(data) : console.log('onDidDismiss sent',  data);
+        });
+     
+        modal.present();
+    
+
       
     } else{
-      console.log("else");
       //delete currentDeal
       //this.currentDeal
       //push currentdeal to deals with timestamp and tracking tag (obj)
@@ -160,37 +200,15 @@ export class RestModalPage {
       }); */
 
       //this.deals.push(this.markerInfo);
-      console.log(this.deals);
-
       this.markerDoc.update({
         'myDeals' : this.deals,
-        'currentDeal.numberTaken' : 10
+        'currentDeal.numberTaken' : 8
       }); 
+      alert("this is the last deal.")
+      return;
     }
-
-    
-
     /* this.user['dealsAquired'].push(this.markerInfo); */
     //this.markerInfo.bookings.push(this.user)
-    let modal = this.modalCtrl.create(BookingModalPage,{
-
-      markerInfo : this.markerInfo,
-      user: this.user
-      
-      /* 'date' : this.reservationForm.value.date,
-      'time' : this.reservationForm.value.time */
-    });
-
-    modal.onDidDismiss(data => {
-      
-      data?  this.dismiss(data) : console.log('onDidDismiss sent',  data);
-    });
- 
-    modal.present();
-
 
   }
-
-  
-
 }

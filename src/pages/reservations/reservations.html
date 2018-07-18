@@ -9,12 +9,14 @@
       <ion-row>
         <ion-col col-6>
           <ion-item>
-            <ion-label>Current</ion-label><ion-checkbox checked></ion-checkbox>
+            <ion-label>Current</ion-label>
+            <ion-checkbox [(ngModel)]="currentTab" (click)="showCurrent()"></ion-checkbox>
           </ion-item>  
         </ion-col>
         <ion-col col-6>
           <ion-item>
-            <ion-label>Archived</ion-label><ion-checkbox></ion-checkbox>
+            <ion-label>Archived</ion-label>
+            <ion-checkbox [(ngModel)]="archivedTab" (click)="showArchived()"></ion-checkbox>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -24,25 +26,23 @@
 
 <ion-content>
   
-<div *ngIf="showArchived">
-  <div *ngFor="let item of myDeals"><!--  -->
-
+<div *ngIf="currentArchived">
+  <div *ngFor="let item of myDeals">
     <ion-card *ngIf="(today | date:'dd/MM/yyyy') <= (item.bookedDate | date:'dd/MM/yyyy')">
-    
       <!-- <img src="img/advance-card-map-madison.png"> -->
       <div style="width:100%; height:auto; background:lightgrey; overflow:hidden">
-        <img width="100%" src="/assets/imgs/restaurant_inside.jpg" alt="Restaurant interior image">
+        <img width="100%" src="{{item.logoUrl}}" alt="Restaurant interior image">
       </div>
         <ion-grid>
           <ion-row>
             <ion-col col-10>
-                <h1 text-center>{{item.name}}</h1>
+                <h1 text-center>{{item.dealName}}</h1>
                 <p text-center>{{item.area}}</p>
                 <p text-center>
-                  <strong>{{item.currentDeal.dealDesc}}</strong>
+                  <strong>{{item.dealDesc}}</strong>
                 </p>
                 <p style="margin-top: 40px;">
-                  Booked for <span style="color:red;">Tuesday 25th March at 5:00pm.</span>
+                  Booked for <span style="color:red;">{{item.bookedDate | date:'dd/MM/yyyy'}}</span>
                 </p>
             </ion-col>
             <ion-col col-2>
@@ -52,7 +52,7 @@
               <button ion-button clear float-right large>
                 <ion-icon name="star" icon-end large (click)="ratePlace()"></ion-icon>
               </button>
-              <button ion-button clear float-right large (click)="ratePlace()">
+              <button ion-button clear float-right large (click)="showAlert('call', item.phone)">
                 <ion-icon name="call" icon-end large></ion-icon>
               </button>
             </ion-col>
@@ -68,7 +68,7 @@
   </div>
 </div>
 
-<div *ngIf="!showArchived">   
+<div *ngIf="!currentArchived">   
   
    
   <ion-card *ngFor="let item of myDeals">    
@@ -79,13 +79,13 @@
     <ion-grid>
       <ion-row>
         <ion-col col-10>
-          <h1 text-center>{{item.name}}</h1>
+          <h1 text-center>{{item.dealName}}</h1>
           <p text-center>{{item.area}}</p>
           <p text-center>
-            <strong>{{item.currentDeal.dealDesc}}</strong>
+            <strong>{{item.dealDesc}}</strong>
           </p>
           <p style="margin-top: 40px;">
-            Booked for <span style="color:red;">Tuesday 25th March at 5:00pm.</span>
+            Booked for <span style="color:red;">{{item.bookedDate | date:'dd/MM/yyyy'}}</span>
           </p>
         </ion-col>
         <ion-col col-2>

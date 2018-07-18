@@ -23,42 +23,51 @@ export class ReservationsPage {
   user: any;
   myDeals: Array<any>;
   today: Date;
-  showArchived: boolean = true;
+  currentTab: boolean = true;
+  archivedTab: boolean = false;
+  currentArchived: boolean = true;;
 
   constructor(
     public navCtrl: NavController,
     private userService : UserServiceProvider,
     public alertCtrl : AlertController
-    /* public user: User */
     ) {
-      this.userData = this.userService.getUserObs();
-      this.today = new Date();
-      console.log("today", this.today);
-      
-      this.userData.subscribe((data)=>{
-        console.log("this", data[0].myDeals);
-        console.log(data[0].myDeals);
+        this.userData = this.userService.getUserObs();
+        this.today = new Date();    
+        this.userData.subscribe((data)=>{
         this.myDeals = data[0].myDeals;
-        console.log(this.myDeals[2].bookedDate)
+        console.log("xxx", this.myDeals);
       })
 
   }
+
+  showArchived(){
+    this.currentTab = false;
+    this.archivedTab = true;
+    this.currentArchived = false;
+
+  }
+
+  showCurrent(){
+    this.currentTab = true;
+    this.archivedTab = false;
+    this.currentArchived = true;
+  }
+  
 
   unsubscribe(){
     this.userData.unsubscribe();
   }
 
-  ionViewDidLeave(){
+  ionViewDidLeave(){}
 
-  }
-
-  showAlert(message?) {
-
+  showAlert(message?, phone?) {
     if(message){
       if(message === 'call'){
+
         let alert = this.alertCtrl.create({
           title: 'Call',
-          subTitle: "Use contacts to call restaurant",
+          subTitle: phone ,
           buttons: ['OK']
         });
         alert.present();
