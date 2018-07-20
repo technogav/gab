@@ -2,13 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormControl } from '../../../node_modules/@angular/forms';
 import * as firebase from 'firebase/app';
+import { LoginRegisterProvider } from '../../providers/login-register/login-register';
+import { PersonalDetailsPage } from '../personal-details/personal-details';
 
-/**
- * Generated class for the RegisterPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -16,34 +12,39 @@ import * as firebase from 'firebase/app';
   templateUrl: 'register.html',
 })
 export class RegisterPage {
-  auth =  firebase.auth();
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
-
-  loginForm: FormGroup = new FormGroup({
+  //vars
+  public loginForm: FormGroup = new FormGroup({
 	  'email' : new FormControl,
 	  'password' : new FormControl
   });
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad RegisterPage');
+  //constructor and lifecycle hooks
+  constructor(
+    public navCtrl: NavController, 
+    public navParams: NavParams,
+    public loginRegisterService : LoginRegisterProvider) {
   }
 
-  login() {
+  ionViewDidLoad() {
 
-		let email = this.loginForm.value.email;
-    let pass = this.loginForm.value.password;
     
-    console.log('email',email);
+  }
 
-		console.log(this.loginForm.value);
-		let promise = this.auth.createUserWithEmailAndPassword(email, pass);
-		promise.then((data) => {
+  //functions
+    register() {
+      let email = this.loginForm.value.email;
+      let password = this.loginForm.value.password;
+      this.loginRegisterService.createUser(email, password)
+      .then((data)=>{
 
-      console.log(data.uid, ' : ',data.email );
+        this.navCtrl.push(PersonalDetailsPage, {
+          'uid': data.uid,
+          'email': data.email/* ,
+          'pass': data.password */
+        });
+      })
+    }
 
-    }).catch((e) => console.log(e.message));
-	}
 
 }

@@ -27,6 +27,9 @@ import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
 import { Geolocation } from '@ionic-native/geolocation';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RegisterPage } from '../pages/register/register';
+import { LoginRegisterProvider } from '../providers/login-register/login-register';
+import {HttpClientModule} from '@angular/common/http';
+import { PersonalDetailsPage } from '../pages/personal-details/personal-details';
 
 @NgModule({
   declarations: [
@@ -42,12 +45,13 @@ import { RegisterPage } from '../pages/register/register';
     TabsPage,
     LoginPage,
     LoginModalPage,
-    RegisterPage
+    RegisterPage,
+    PersonalDetailsPage
   ],
   imports: [
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebase),
-
+    HttpClientModule,
     AgmCoreModule.forRoot({
       apiKey:'AIzaSyD9WttyqFcI5wTLvoL16i1Kri_Vzg7kINE',
       libraries: ["places"]
@@ -77,7 +81,8 @@ import { RegisterPage } from '../pages/register/register';
     TabsPage,
     LoginPage,
     LoginModalPage,
-    RegisterPage
+    RegisterPage,
+    PersonalDetailsPage
   ],
   providers: [
     StatusBar,
@@ -85,7 +90,8 @@ import { RegisterPage } from '../pages/register/register';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserServiceProvider,
     GeoServiceProvider,
-    Geolocation   
+    Geolocation,
+    LoginRegisterProvider   
   ],  
 })
 export class AppModule {}
