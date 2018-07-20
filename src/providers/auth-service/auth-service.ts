@@ -12,31 +12,7 @@ import AuthProvider = firebase.auth.AuthProvider;
 
 export class AuthServiceProvider {
 
-	private user: firebase.User;
-
-
-
-	constructor(public afAuth: AngularFireAuth) {
-
-		afAuth.authState.subscribe(user => {
-
-			this.user = user;
-
-		});
-
-	}
-
-
-
-	signInWithEmail(credentials) {
-
-		console.log('Sign in with email');
-
-		return this.afAuth.auth.signInWithEmailAndPassword(credentials.email,
-
-			 credentials.password);
-
-  }
+	
   
   
 

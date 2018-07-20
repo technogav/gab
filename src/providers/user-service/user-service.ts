@@ -23,41 +23,27 @@ export class UserServiceProvider{
 
   markerCollection$: Observable<Item[]>;
   
-  markerDoc : AngularFirestoreDocument<Item>
+  markerDoc : AngularFirestoreDocument<any>
   markerDoc$ : Observable<Item[]>;
   userCollection$ : Observable<Item[]>;
-  snapshot: any;
-  
   markerCollection: AngularFirestoreCollection<Item>;
   userCollection: AngularFirestoreCollection<Item>;
-
-  todoCollectionRef: AngularFirestoreCollection<Item>;
-  todo$: Observable<Item[]>;
-
-  user: {} = {
-    name: 'Gavin',
-    areaName : 'Kilcullen',
-    email : 'gavin_murphy1981@yahoo.ie',
-    phone: '087 736 8998'
-  };
-  
   userDoc: AngularFirestoreDocument<{}>;
   userDoc$: Observable<Item[]>;
-  testObs : Observable<void[]>;
+
+  testObs : Observable<any[]>;
   userDeals: Array<any> = [];
   userCollection$$: any;
+  private _markerId: string;
+  user: Item;
 
   constructor(private afs: AngularFirestore) {
     const firestore = firebase.firestore();
     const settings = {/* your settings... */ timestampsInSnapshots: true};
     firestore.settings(settings);
 
-    console.log('u ser');
     this.markerCollection = this.afs.collection('markers');
-    //this.markerCollection$ = this.markerCollection.valueChanges();
-
-    this.markerDoc = this.afs.doc('markers/bJmk3ikxWmFN481A1OCM');
-    this.markerDoc$ = this.markerCollection.valueChanges();
+    this.markerCollection$ = this.markerCollection.valueChanges();
 
     this.userCollection = this.afs.collection('users');
     this.userCollection$ = this.userCollection.valueChanges();
@@ -65,54 +51,128 @@ export class UserServiceProvider{
     this.userDoc = this.afs.doc('users/9smhOJNtC19sod8cAjb0');
     this.userDoc$ = this.userCollection.valueChanges();
 
-    
-
-    /* this.markerCollection.snapshotChanges()
-      .pipe(map(arr => {
-        console.log(33, arr);
-        
-        arr.map(snap => snap.payload.doc.data() )
-        console.log(44, arr[0].payload.doc.id);
-        return arr;
-      })); */
-
+      //get marker object with ids and data
       this.testObs = this.markerCollection.snapshotChanges().map(actions => {
-
         return actions.map(action => {
-          /* console.log(action.payload.doc.id);
-          console.log(action.payload.doc.data()); */
-
           let id = action.payload.doc.id;
-          let data = action.payload.doc.data();
-
-          console.log("****************");
-          console.log({id , data});
-
+          let data = action.payload.doc.data() as Item;
           return {id , data};
         });
-      }); 
+      });
+      
+      this.userCollection$.subscribe((data)=>{
+        console.log(555, data[0]);
+        this.user = data[0];
+      })  
+  }
 
-      this.testObs.subscribe((test) => {
-        console.log("test", test)
-      })
+  setMarkerRef(markerInfo, date, time){
+      this.markerDoc = this.afs.doc('markers/' + markerInfo.id);
+      this.markerDoc$ = this.markerCollection.valueChanges();
+
+      let numberAvailable = markerInfo.data.currentDeal.numberAvailable; 
+      let numberTaken = markerInfo.data.currentDeal.numberTaken;
+      let currentDeal = markerInfo.data.currentDeal;
+
+      if (numberTaken < numberAvailable){
+            numberTaken = numberTaken + 1;
+            if(this.user){
+              if (this.user['myDeals'].length > 4){
+                this.user['myDeals'].shift();
+              }
+
+            this.user['myDeals'].push({
+              dealDesc : markerInfo.data.currentDeal.dealDesc ,
+              dealId : markerInfo.data.currentDeal.id,
+              dealName : markerInfo.data.currentDeal.name,
+              dealTimeStart : markerInfo.data.currentDeal.timeFrom,
+              dealTimeEnd : markerInfo.data.currentDeal.timeTo,
+              description: markerInfo.data.desc,
+              id : markerInfo.data.id,
+              img :  markerInfo.data.img,
+              logoUrl : markerInfo.data.logoUrl,
+              lat: markerInfo.data.lat,
+              lng : markerInfo.data.long,
+              phone : '001011',
+              bookedDate: date,
+              timeBooked: time,
+              placeName: markerInfo.data.name,
+              area : markerInfo.data.area 
+            });
+
+            if (currentDeal.bookings.length > 4){
+                  currentDeal.bookings.shift();
+            }
+
+            currentDeal.bookings.push({
+              name: this.user['name'] + ' ' + this.user['surname'],
+              phone: this.user['phone'],
+              email: this.user['email'],
+              dateBooked: date,
+              timeBooked: time
+            });
+
+          this.userDoc.update({
+            'myDeals' : this.user['myDeals']
+          });
+
+          this.markerDoc.update({
+            'currentDeal.numberTaken' : numberTaken,
+            'currentDeal.bookings' : currentDeal.bookings  
+          });
+
+        }else{
+          alert("this.user is undefined");
+        }
+      }else{
+        //delete currentDeal
+        //this.currentDeal
+        //push currentdeal to deals with timestamp and tracking tag (obj)
+        //this.currentDeal.push()
+  
+        /* this.markerDoc.update({
+          'currentDeal.numberTaken' : 10
+        }); */
+  
+        //this.deals.push(this.markerInfo);
+       /*  this.markerDoc.update({
+          'myDeals' : this.deals,
+          'currentDeal.numberTaken' : 8
+        }); 
+        alert("this is the last deal.")
+        return;
+      } */
+      /* this.user['dealsAquired'].push(this.markerInfo); */
+      //this.markerInfo.bookings.push(this.user)
+  
+    }
+  }
+
+  public setMarkerId(id){
+
+    this._markerId = id;
+    //this.getMarkerRef(id);
+
   }
 
   getMarkers(){
-    return this.markerCollection$;
+    return this.testObs;
+    //return this.markerCollection$;
   }
 
   getMarkerDoc(){
-
-
     return this.markerDoc;
   }
 
-  getDocObs(){
+  getDocObs(){//rubbish
+    console.log(this.markerDoc$);
     return this.markerDoc$;
+    
   }
 
   getUser(){
-    return this.userCollection;
+    return this.user;
+    //return this.userCollection;
   }
 
   getUserObs(){

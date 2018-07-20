@@ -2,17 +2,14 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-
 import { SettingsPage } from '../pages/settings/settings';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { ReservationsPage } from '../pages/reservations/reservations';
 import { TabsPage } from '../pages/tabs/tabs';
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
-
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 //import { AngularFireStorageModule } from 'angularfire2/storage';
@@ -25,23 +22,14 @@ import { FilterModalPage } from '../pages/filter-modal/filter-modal';
 import { BookingModalPage } from '../pages/booking-modal/booking-modal';
 import { LoginPage } from '../pages/login/login';
 import { LoginModalPage } from '../pages/login-modal/login-modal';
-
-
-
 import { AgmCoreModule } from '@agm/core';
 import { AgmSnazzyInfoWindowModule } from '@agm/snazzy-info-window';
-
-import { ReservationsArchivedPage } from '../pages/reservations-archived/reservations-archived';
-
 import { Geolocation } from '@ionic-native/geolocation';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
-
-
+import { RegisterPage } from '../pages/register/register';
 
 @NgModule({
   declarations: [
-    
     MyApp,
     ReservationsPage,
     SettingsPage,
@@ -50,11 +38,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     HomePage,
     RestModalPage,
     BookingModalPage,
-    //ReservationsArchivedPage,
     FilterModalPage,
     TabsPage,
     LoginPage,
-    LoginModalPage
+    LoginModalPage,
+    RegisterPage
   ],
   imports: [
     BrowserModule,
@@ -86,10 +74,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     RestModalPage,
     BookingModalPage,
     FilterModalPage,
-    //ReservationsArchivedPage,
     TabsPage,
     LoginPage,
-    LoginModalPage
+    LoginModalPage,
+    RegisterPage
   ],
   providers: [
     StatusBar,
@@ -97,12 +85,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     UserServiceProvider,
     GeoServiceProvider,
-    Geolocation,
-    
-  ],
-
-  
-
-  
+    Geolocation   
+  ],  
 })
 export class AppModule {}

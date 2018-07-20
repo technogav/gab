@@ -75,13 +75,14 @@
     >   
     <ng-template>
       <div style="width: 250px; position:relative; height:auto; margin-top: 0px;    margin-bottom:4px; padding:0px;">
-        <img width="100%" src="{{item.img}}" alt="">
+       
+        <img width="100%" src="{{item.data.img}}" alt="">
             
-        <div text-center><strong>{{item.name}}</strong></div>
+        <div text-center><strong>{{item.data.name}}</strong></div>
         <ion-grid>
           <ion-row>
             <ion-col>
-                <div text-center>{{item.currentDeal.dealDesc}}</div>
+                <div text-center>{{item.data.currentDeal.dealDesc}}</div>
             </ion-col>   
           </ion-row>
           <ion-row>
@@ -90,7 +91,7 @@
             </ion-col>
           </ion-row>
         </ion-grid>
-      </div>
+      </div> 
   </ng-template>
     </agm-snazzy-info-window>
 
@@ -105,11 +106,11 @@
     </agm-marker>
     <agm-marker 
       *ngFor="let item of rests | async; let i = index" 
-      [latitude]="item.lat" 
-      [longitude]="item.long"
+      [latitude]="item.data.lat" 
+      [longitude]="item.data.long"
       [iconUrl]="custom_marker"
       #marker
-      (markerClick) = "markerInfo(item)"
+      (markerClick) = "getMarkerInfo(item)"
     >
    
     </agm-marker>

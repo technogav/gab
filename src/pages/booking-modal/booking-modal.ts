@@ -27,7 +27,7 @@ export class BookingModalPage {
     public viewCtrl: ViewController,
     public alertCtrl: AlertController,
     public params: NavParams) {
-      console.log(222,params.get('markerInfo'))
+
   }
 
   ionViewDidLoad() {

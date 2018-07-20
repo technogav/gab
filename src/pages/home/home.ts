@@ -1,19 +1,13 @@
-import { Component, ElementRef, NgModule, NgZone, OnInit, ViewChild } from '@angular/core';
-import { NavController, Platform, AlertController, ModalController } from 'ionic-angular';
-import { BrowserModule } from "@angular/platform-browser";
-//import { AngularFirestore } from 'angularfire2/firestore';
+import { Component, ElementRef, NgZone,  ViewChild } from '@angular/core';
+import { AlertController, ModalController } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
 import { RestModalPage } from '../rest-modal/rest-modal';
 import { } from 'googlemaps';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
-//import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-
 import { FormControl } from "@angular/forms";
 import { Geolocation } from '@ionic-native/geolocation';
-import { GeoServiceProvider } from '../../providers/geo-service/geo-service';
 import { FilterModalPage } from '../filter-modal/filter-modal';
 import { LoginModalPage } from '../login-modal/login-modal';//if click rest details & logged 
-import { User } from '../../models/userModal';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 
 @Component({
@@ -296,20 +290,21 @@ export class HomePage {
     mapCenterLat: number;
     currentLocLat: number;
     currentLocLng: number;
-    user = {
-        name: 'Gavin' ,
-        email:'gavinmurphy00101@gmail.com',
-        phone:'0871234556',
-        area: 'Newbridge' ,
-        top5: [],
-         last5: [],
-        dealsAquired: [],
-        settingsPref: []
-    }
-    
+   
     tempMap : { lat: number, lng:number };
+    markerId: string;
    
     infoWindowOpening(){}
+
+    getMarker(){
+        return {
+            url: '../../assets/imgs/custom_marker_examp.png',
+                scaledSize: {
+                width:40,
+                height: 40
+                }
+            }
+    }
 
     constructor(
         public agm:AgmCoreModule,
@@ -317,23 +312,12 @@ export class HomePage {
         public modalCtrl: ModalController,
         private geolocation: Geolocation,
         private mapsAPILoader: MapsAPILoader,
-        private GeoService : GeoServiceProvider,
         private ngZone: NgZone,
         private userService : UserServiceProvider
        
         ){ 
-        //this.items = db.collection('items').valueChanges(); 
-        /* let markerCollection$ = userService.getMarkers()
-        markerCollection$.subscribe(data => {
-            this.rests = data; 
-            
-         } );*/
-
-         this.rests = userService.getMarkers();
-         
-
-        //this.showAlert();
-        //this.openModal();
+        
+        this.rests = userService.getMarkers();
         this.geolocation.getCurrentPosition()
             .then((resp) => {
                 this.mapCenterLat = resp.coords.latitude;
@@ -407,10 +391,12 @@ export class HomePage {
         }   
     }
 
-    public markerInfo(item){ 
+    public getMarkerInfo(item){ 
+        this.userService.setMarkerId(item.id)
+        this.markerId = item.id;
         this.item = item;
-        this.markerLat = item.lat;
-        this.markerLong = item.long;
+        this.markerLat = item.data.lat;
+        this.markerLong = item.data.long;
         this.markerOpen = true;
     }
 
@@ -464,10 +450,9 @@ export class HomePage {
     }
 
     openModal(markerInfo) {
-
         let modal = this.modalCtrl.create(RestModalPage, { 
             markerInfo : markerInfo,
-            user: this.user
+           
         } );
 
         modal.onDidDismiss(data => {

@@ -1,77 +1,70 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, Item } from 'ionic-angular';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
-//import { ReservationsArchivedPage } from '../../pages/reservations-archived/reservations-archived'
 
 @Component({
   selector: 'page-reservations',
   templateUrl: 'reservations.html'
 })
 
-
 export class ReservationsPage {
   
-  userForm = new FormGroup({
+  public userForm = new FormGroup({
     'name': new FormControl(),
     'email': new FormControl(),
     'phone' : new FormControl(),
     'area' : new FormControl()
   });
-  userData: any;
-  userDeals: any;
-  user: any;
-  myDeals: Array<any>;
-  today: Date;
-  currentTab: boolean = true;
-  archivedTab: boolean = false;
-  currentArchived: boolean = true;;
+  private user: any;
+  public myDeals: Array<any>;
+  public today: Date;
+  public currentTab: boolean = true;
+  public archivedTab: boolean = false;
+  public currentArchived: boolean = true;;
 
   constructor(
     public navCtrl: NavController,
     private userService : UserServiceProvider,
     public alertCtrl : AlertController
-    ) {
-        this.userData = this.userService.getUserObs();
-        this.today = new Date();    
-        this.userData.subscribe((data)=>{
-        this.myDeals = data[0].myDeals;
-        console.log("xxx", this.myDeals);
-      })
-
+    ){
+    this.user = this.userService.getUser();
+    this.myDeals = this.user.myDeals;
+    this.today = new Date();
   }
 
-  showArchived(){
+  //show archived deals
+  public showArchived(){
     this.currentTab = false;
     this.archivedTab = true;
     this.currentArchived = false;
-
   }
 
-  showCurrent(){
+  //show active deals
+  public showActive(){
     this.currentTab = true;
     this.archivedTab = false;
     this.currentArchived = true;
   }
-  
 
-  unsubscribe(){
-    this.userData.unsubscribe();
-  }
-
-  ionViewDidLeave(){}
-
-  showAlert(message?, phone?) {
+  //show different alerts depending what is passed in
+  public showAlert(message?, phone?) {
     if(message){
       if(message === 'call'){
-
         let alert = this.alertCtrl.create({
           title: 'Call',
           subTitle: phone ,
           buttons: ['OK']
         });
+        alert.present();    
+      }else if(message === 'rate'){
+        let alert = this.alertCtrl.create({
+          title: 'Offline!',
+          subTitle: "Rating Feature coming soon. (to help with AI suggestions)",
+          buttons: ['OK']
+        });
         alert.present();
-      }
+      }  
     }else{
       let alert = this.alertCtrl.create({
         title: 'Offline!',
@@ -81,20 +74,8 @@ export class ReservationsPage {
       alert.present();
     }  
   }
-
-  public ratePlace(){
-    let alert = this.alertCtrl.create({
-      title: 'Offline!',
-      subTitle: "Rating Feature coming soon. (to help with AI suggestions)",
-      buttons: ['OK']
-    });
-    alert.present();
-  }
  
   public onSubmit(){
     this.userService.saveUser(this.userForm.value);
   }
-
-  
-
 }

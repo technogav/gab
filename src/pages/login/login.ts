@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 //import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { HomePage } from '../home/home';
+import * as firebase from 'firebase/app';
+import { RegisterPage } from '../register/register';
 
 /**
  * Generated class for the LoginPage page.
@@ -18,49 +20,32 @@ import { HomePage } from '../home/home';
 })
 export class LoginPage {
 
-  loginForm: FormGroup;
+	auth =  firebase.auth();	
 
+  loginForm: FormGroup = new FormGroup({
+	  'email' : new FormControl,
+	  'password' : new FormControl
+  });
 	loginError: string;
 
-
-
 	constructor(
+		private navCtrl: NavController,
+		private formBuilder: FormBuilder
+	) {}
 
-		//private navCtrl: NavController,
+	goRegister(){
+		this.navCtrl.push(RegisterPage);
+	}	
+  login() {
 
-		//private auth: AuthServiceProvider,
+		let email = this.loginForm.value.email;
+		let pass = this.loginForm.value.password
 
-		//fb: FormBuilder
+		console.log(this.loginForm.value);
+		let promise = this.auth.signInWithEmailAndPassword(email, pass);
+		promise.catch((e) => console.log(e.message));
+	}
 
-	) {
 
-		/* this.loginForm = fb.group({
-
-			email: ['', Validators.compose([Validators.required, Validators.email])],
-
-			password: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
-
-		}); */
-
-  }
-  
-  /* login() {
-
-		let data = this.loginForm.value;
-
-		if (!data.email) return;
-
-		let credentials = {
-			email: data.email,
-			password: data.password
-		};
-
-		this.auth.signInWithEmail(credentials)
-			.then(
-				() => this.navCtrl.setRoot(HomePage),
-				error => this.loginError = error.message
-			);
-
-	} */
 
 }

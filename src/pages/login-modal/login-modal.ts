@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
-import { BookingModalPage } from '../booking-modal/booking-modal';
+
 
 /**
  * Generated class for the LoginModalPage page.
