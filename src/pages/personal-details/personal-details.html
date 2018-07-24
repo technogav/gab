@@ -1,43 +1,60 @@
-<!--
-  Generated template for the PersonalDetailsPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
-
   <ion-navbar>
     <ion-title>personalDetailsPage</ion-title>
-  </ion-navbar>
-
+   </ion-navbar>
 </ion-header>
 
-
 <ion-content padding>
+  <form (ngSubmit)="registerDetails()" [formGroup]="registerDetailsForm ">
 
-    <form (ngSubmit)="login()" [formGroup]="loginForm">
-
-        <ion-list>
+    <ion-list>
   
-            <ion-item>
-              <ion-label floating>Name</ion-label>
-              <ion-input id="email" type="email" formControlName='name'></ion-input>
-            </ion-item>
+      <ion-item>
+        <ion-label floating>Name</ion-label>
+        <ion-input id="email" type="email" formControlName='name'></ion-input>
+      </ion-item>
 
-            <ion-item>
-              <ion-label floating>Surname (optional)</ion-label>
-              <ion-input id="email" type="email" formControlName='surname'></ion-input>
-            </ion-item>
+      <ion-item>
+        <ion-label floating>Surname (optional)</ion-label>
+        <ion-input id="email" type="email" formControlName='surname'></ion-input>
+      </ion-item>
           
-            <ion-item>
-              <ion-label floating>Email</ion-label>
-              <ion-input type="email" [disabled]='true' [value]="email" formControlName='email'></ion-input>
-            </ion-item>
-          
-          </ion-list>
+      <ion-item>
+        <ion-label floating>Email</ion-label>
+        <ion-input type="email" [disabled]='true' [value]="email" formControlName='email'></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Dob (optional)</ion-label>
+        <ion-input type="text" formControlName='dob'></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Phone (optional)</ion-label>
+        <ion-input type="text" formControlName='phone'></ion-input>
+      </ion-item>
+    
+    </ion-list>
   
-          <button ion-button full>Login</button>
+    <button ion-button full (click)="registerDetailsNow()">Register</button>
   
-    </form>
+  </form>
+  <button ion-button full (click)="registerDetailsLater()">Later</button>
+    <!-- 
+
+      public name:string,
+        public surname: string,
+        public dob: string,
+        public dateJoined: string,
+        public myDeals: Array<any>,
+        public favorites: Array<any>,
+        public reviews: Array<any>,
+        public email:string,
+        public phone:number,
+        public areaName: string,
+        public top5: Array<any>,
+        public last5: Array<any>,
+        public settingsPref: Array<any>
+     -->
 
 </ion-content>

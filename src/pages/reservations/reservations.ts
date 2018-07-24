@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, Item } from 'ionic-angular';
+import { NavController, AlertController } from 'ionic-angular';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 

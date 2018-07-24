@@ -1,17 +1,9 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-//import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { HomePage } from '../home/home';
+import { IonicPage, NavController,  } from 'ionic-angular';
+import { FormGroup,  FormControl } from '@angular/forms';
 import * as firebase from 'firebase/app';
 import { RegisterPage } from '../register/register';
-
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { LoginRegisterProvider } from '../../providers/login-register/login-register';
 
 @IonicPage()
 @Component({
@@ -20,18 +12,22 @@ import { RegisterPage } from '../register/register';
 })
 export class LoginPage {
 
-	auth =  firebase.auth();	
+auth =  firebase.auth();
+user: any;	
 
-  loginForm: FormGroup = new FormGroup({
-	  'email' : new FormControl,
-	  'password' : new FormControl
-  });
-	loginError: string;
+loginForm: FormGroup = new FormGroup({
+	'email' : new FormControl,
+	'password' : new FormControl
+});
+loginError: string;
 
 	constructor(
 		private navCtrl: NavController,
-		private formBuilder: FormBuilder
-	) {}
+		private loginRegesterService: LoginRegisterProvider
+	) {
+		this.user = loginRegesterService.getUser();//null
+		
+	}
 
 	goRegister(){
 		this.navCtrl.push(RegisterPage);
@@ -39,13 +35,21 @@ export class LoginPage {
   login() {
 
 		let email = this.loginForm.value.email;
-		let pass = this.loginForm.value.password
+		let pass = this.loginForm.value.password;
 
-		console.log(this.loginForm.value);
-		let promise = this.auth.signInWithEmailAndPassword(email, pass);
-		promise.catch((e) => console.log(e.message));
+		this.loginRegesterService.login(email, pass);
+		this.navCtrl.pop();
+			/* .then((res)=> console.log(res))
+			.catch((e) => {
+				console.log(e.message);
+				alert('no user with this email address')
+			}) */
+		
+		
 	}
 
-
-
+	logout(){
+		
+		this.loginRegesterService.logout();
+	}
 }

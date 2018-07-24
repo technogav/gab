@@ -1,15 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { FormControl, FormGroup } from '@angular/forms';
-import { UserServiceProvider } from '../../providers/user-service/user-service';
-
-
-/**
- * Generated class for the LoginModalPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -31,7 +22,6 @@ export class LoginModalPage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public viewCtrl:ViewController,
-    private userService : UserServiceProvider,
     public modalCtrl : ModalController) {
   }
 

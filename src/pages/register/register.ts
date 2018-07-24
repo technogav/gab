@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormControl } from '../../../node_modules/@angular/forms';
-import * as firebase from 'firebase/app';
 import { LoginRegisterProvider } from '../../providers/login-register/login-register';
 import { PersonalDetailsPage } from '../personal-details/personal-details';
 
@@ -14,19 +13,19 @@ import { PersonalDetailsPage } from '../personal-details/personal-details';
 export class RegisterPage {
 
   //vars
-  public loginForm: FormGroup = new FormGroup({
-	  'email' : new FormControl,
-	  'password' : new FormControl
-  });
+    public loginForm: FormGroup = new FormGroup({
+      'email' : new FormControl,
+      'password' : new FormControl
+    });
 
   //constructor and lifecycle hooks
-  constructor(
-    public navCtrl: NavController, 
-    public navParams: NavParams,
-    public loginRegisterService : LoginRegisterProvider) {
-  }
+    constructor(
+      public navCtrl: NavController, 
+      public navParams: NavParams,
+      public loginRegisterService : LoginRegisterProvider) {
+    }
 
-  ionViewDidLoad() {
+  ionViewDidLoad(){
 
     
   }
@@ -38,10 +37,11 @@ export class RegisterPage {
       this.loginRegisterService.createUser(email, password)
       .then((data)=>{
 
+        console.log('funbags', data.uid);
+
         this.navCtrl.push(PersonalDetailsPage, {
           'uid': data.uid,
-          'email': data.email/* ,
-          'pass': data.password */
+          'email': data.email 
         });
       })
     }

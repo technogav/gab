@@ -4,6 +4,7 @@ import { BookingModalPage } from '../booking-modal/booking-modal';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { LoginPage } from '../login/login';
+import { LoginRegisterProvider } from '../../providers/login-register/login-register';
 
 @IonicPage()
 @Component({
@@ -33,18 +34,23 @@ export class RestModalPage {
   allowBooking: boolean = false;
 
   constructor(
+    
     public navCtrl: NavController, 
     public navParams: NavParams, 
     public modalCtrl:ModalController, 
     public viewCtrl:ViewController,
     public alertCtrl : AlertController,
-    public userService: UserServiceProvider) {
+    public userService: UserServiceProvider,
+    private loginRegisterService : LoginRegisterProvider) {
     this.markerInfo = this.navParams.get('markerInfo');
 
-    this.userData = this.userService.getUserObs().subscribe((data) =>{
+    /* this.userData = this.userService.getUserObs().subscribe((data) =>{
 
-    this.user = data[0];
-    })
+    this.user = data[0]; 
+    })*/
+    console.log('rest-modal cons');
+    this.user = this.loginRegisterService.getUser();
+
   }
 
   public acceptDate(){
@@ -59,9 +65,7 @@ export class RestModalPage {
 
   ionViewWillEnter() {}
 
-  ionViewWillLeave(){
-   this.userData.unsubscribe();
-  }
+  ionViewWillLeave(){}
 
   dismiss(bool) {
     this.viewCtrl.dismiss(bool);
@@ -77,42 +81,40 @@ export class RestModalPage {
   }
 
   onSubmit(){
-    this.userService.reservation(this.reservationForm.value)
+    this.userService.reservation(this.reservationForm.value);
   }
 
   private checkIfLoggedIn(){
-    console.log("checked if logged in");
-    this.user = undefined;
-    if (!this.user){
+
+    if (this.user){
+      return true;
+    }else{
       alert("not logged in");
       this.navCtrl.push(LoginPage);
-
+      return false;
     }
   }
 
   reserve() {
-    console.log('sjdilfj');
+    this.user = this.loginRegisterService.getUser();
 
-    this.checkIfLoggedIn();
+    if (!this.checkIfLoggedIn()) return; 
     if (!this.reservationForm.value.date) return;
+  
     let date = this.reservationForm.value.date;
     let time = this.reservationForm.value.time;
 
-    this.userService.setMarkerRef(this.markerInfo, date, time);
+    this.userService.setMarkerRef(this.markerInfo, date, time, this.user);
 
       let modal = this.modalCtrl.create(BookingModalPage,{
         markerInfo : this.markerInfo,
         user: this.user
       });
   
-      modal.onDidDismiss(data => {
-        
+      modal.onDidDismiss(data => {  
         data?  this.dismiss(data) : console.log('onDidDismiss sent',  data);
       });
     
-      modal.present();
-    
-
-      
+      modal.present();  
     } 
 }

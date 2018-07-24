@@ -1,35 +1,21 @@
-//import { HttpClient } from '@angular/common/http';
-import { Injectable, OnInit } from '@angular/core';
+
+import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
-//import { Observable } from 'rxjs';
 import { Item } from 'ionic-angular';
 import { Observable } from 'rxjs/Observable';
-import { map } from "rxjs/operators";
-/* import { User } from '../../models/userModal' */
 
-/*
-  Generated class for the UserServiceProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-
-  this service is for preparing data for upload to FB and for filtering and sorting data coming down from user
-  it is also setting permissions for the user. (!note Do as much filtering as can be done on the FB servers)
-  apis contacted will be firebase facebook google and whatever
-*/
 @Injectable()
 export class UserServiceProvider{
 
   markerCollection$: Observable<Item[]>;
-  
   markerDoc : AngularFirestoreDocument<any>
   markerDoc$ : Observable<Item[]>;
   userCollection$ : Observable<Item[]>;
   markerCollection: AngularFirestoreCollection<Item>;
   userCollection: AngularFirestoreCollection<Item>;
   userDoc: AngularFirestoreDocument<{}>;
-  userDoc$: Observable<Item[]>;
+  userDoc$: Observable<{}>;
 
   testObs : Observable<any[]>;
   userDeals: Array<any> = [];
@@ -38,6 +24,7 @@ export class UserServiceProvider{
   user: Item;
 
   constructor(private afs: AngularFirestore) {
+    console.log('************************************* user service************')
     const firestore = firebase.firestore();
     const settings = {/* your settings... */ timestampsInSnapshots: true};
     firestore.settings(settings);
@@ -48,9 +35,6 @@ export class UserServiceProvider{
     this.userCollection = this.afs.collection('users');
     this.userCollection$ = this.userCollection.valueChanges();
 
-    this.userDoc = this.afs.doc('users/9smhOJNtC19sod8cAjb0');
-    this.userDoc$ = this.userCollection.valueChanges();
-
       //get marker object with ids and data
       this.testObs = this.markerCollection.snapshotChanges().map(actions => {
         return actions.map(action => {
@@ -59,29 +43,35 @@ export class UserServiceProvider{
           return {id , data};
         });
       });
-      
-      this.userCollection$.subscribe((data)=>{
-        console.log(555, data[0]);
-        this.user = data[0];
-      })  
+ 
   }
 
-  setMarkerRef(markerInfo, date, time){
+  setMarkerRef(markerInfo, date, time, user){
+console.log(1, 'A', user);
+
+//get the uid her now!!!!!!!!!!!!!!!!!!!!!!!
+
+
       this.markerDoc = this.afs.doc('markers/' + markerInfo.id);
       this.markerDoc$ = this.markerCollection.valueChanges();
 
+      this.userDoc = this.afs.collection("users").doc(user.uid);
+      
       let numberAvailable = markerInfo.data.currentDeal.numberAvailable; 
       let numberTaken = markerInfo.data.currentDeal.numberTaken;
       let currentDeal = markerInfo.data.currentDeal;
 
       if (numberTaken < numberAvailable){
             numberTaken = numberTaken + 1;
-            if(this.user){
-              if (this.user['myDeals'].length > 4){
-                this.user['myDeals'].shift();
+            if(user){
+              console.log(2, user.name);
+              if (user['myDeals'].length > 4){
+                user['myDeals'].shift();
               }
 
-            this.user['myDeals'].push({
+            console.log(3, user.myDeals);
+
+            user['myDeals'].push({
               dealDesc : markerInfo.data.currentDeal.dealDesc ,
               dealId : markerInfo.data.currentDeal.id,
               dealName : markerInfo.data.currentDeal.name,
@@ -105,15 +95,15 @@ export class UserServiceProvider{
             }
 
             currentDeal.bookings.push({
-              name: this.user['name'] + ' ' + this.user['surname'],
-              phone: this.user['phone'],
-              email: this.user['email'],
+              name: user['name'] + ' ' + user['surname'],
+              phone: user['phone'],
+              email: user['email'],
               dateBooked: date,
               timeBooked: time
             });
 
           this.userDoc.update({
-            'myDeals' : this.user['myDeals']
+            'myDeals' : user['myDeals']
           });
 
           this.markerDoc.update({
@@ -166,8 +156,7 @@ export class UserServiceProvider{
 
   getDocObs(){//rubbish
     console.log(this.markerDoc$);
-    return this.markerDoc$;
-    
+    return this.markerDoc$; 
   }
 
   getUser(){

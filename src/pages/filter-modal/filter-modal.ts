@@ -1,15 +1,8 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController, AlertController } from 'ionic-angular';
-import { BookingModalPage } from '../booking-modal/booking-modal';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 
-/**
- * Generated class for the RestModalPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
