@@ -290,7 +290,6 @@ export class HomePage {
     mapCenterLat: number;
     currentLocLat: number;
     currentLocLng: number;
-   
     tempMap : { lat: number, lng:number };
     markerId: string;
    

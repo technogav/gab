@@ -4,6 +4,7 @@ import { FormGroup,  FormControl } from '@angular/forms';
 import * as firebase from 'firebase/app';
 import { RegisterPage } from '../register/register';
 import { LoginRegisterProvider } from '../../providers/login-register/login-register';
+import { HomePage } from '../home/home';
 
 @IonicPage()
 @Component({
@@ -27,6 +28,7 @@ loginError: string;
 	) {
 		this.user = loginRegesterService.getUser();//null
 		
+		
 	}
 
 	goRegister(){
@@ -44,8 +46,16 @@ loginError: string;
 				console.log(e.message);
 				alert('no user with this email address')
 			}) */
+
+			/* this.nav.setRoot(SomePage) */
 		
 		
+	}
+
+	cancel(){
+
+		this.navCtrl.setRoot(HomePage)
+
 	}
 
 	logout(){

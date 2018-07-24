@@ -29,7 +29,7 @@
 <div *ngIf="currentArchived">
   <div *ngFor="let item of myDeals">
     <ion-card *ngIf="(today | date:'dd/MM/yyyy') <= (item.bookedDate | date:'dd/MM/yyyy')">
-      <!-- <img src="img/advance-card-map-madison.png"> -->
+      
       <div style="width:100%; height:auto; background:lightgrey; overflow:hidden">
         <img width="100%" src="{{item.logoUrl}}" alt="Restaurant interior image">
       </div>
@@ -72,7 +72,7 @@
   
    
   <ion-card *ngFor="let item of myDeals">    
-    <!-- <img src="img/advance-card-map-madison.png"> -->
+    
     <div style="width:100%; height:auto; background:lightgrey; overflow:hidden">
       <img width="100%" src="/assets/imgs/restaurant_inside.jpg" alt="Restaurant interior image">
     </div>

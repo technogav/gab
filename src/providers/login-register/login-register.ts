@@ -50,16 +50,21 @@ export class LoginRegisterProvider {
   }
 
   public login(email, password){
+    
     let promise = this.auth.signInWithEmailAndPassword(email, password);
       promise.then((data)=>{ 
         if (data.uid){ 
+          
           this.setUser(data.uid);
         }
       })
     .catch((e)=>{
       console.log(e.message);
+      
       alert(e.message);
-    }) 
+    });
+    
+    
   }
 
   public logout(){

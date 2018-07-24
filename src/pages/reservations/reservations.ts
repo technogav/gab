@@ -1,7 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController } from 'ionic-angular';
+import { NavController, AlertController, ModalController } from 'ionic-angular';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
+import { LoginRegisterProvider } from '../../providers/login-register/login-register';
+import { LoginPage } from '../login/login';
+/* import { LoginModalPage } from '../login-modal/login-modal'; */
+
 
 @Component({
   selector: 'page-reservations',
@@ -26,11 +30,36 @@ export class ReservationsPage {
   constructor(
     public navCtrl: NavController,
     private userService : UserServiceProvider,
-    public alertCtrl : AlertController
+    public alertCtrl : AlertController,
+    public loginRegisterService: LoginRegisterProvider,
+    public modalCtrl: ModalController
     ){
-    this.user = this.userService.getUser();
-    this.myDeals = this.user.myDeals;
-    this.today = new Date();
+    
+    console.log(this.user, 77);
+    
+  }
+
+  /* private openLoginModal(){
+    let modal = this.modalCtrl.create(LoginModalPage );
+
+    modal.onDidDismiss(data => {
+        //this.infoWindowOpen = !this.infoWindowOpen 
+    });
+    modal.present();
+  } */
+
+  ionViewWillEnter(){
+    this.user = this.loginRegisterService.getUser();
+
+    if(!this.user){
+      alert('no user. Please log in');
+      this.navCtrl.push(LoginPage);
+      //this.openLoginModal();
+
+    }else{
+      this.myDeals = this.user.myDeals;
+      this.today = new Date();
+    }
   }
 
   //show archived deals
