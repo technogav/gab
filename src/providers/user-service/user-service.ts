@@ -43,6 +43,9 @@ export class UserServiceProvider{
           return {id , data};
         });
       });
+
+
+      
  
   }
 
@@ -196,8 +199,8 @@ export class UserServiceProvider{
           'id': 12345,
           'name': 'River Bank Theater',
           'desc': 'Riverbank Arts Centre hosts a programme of local, national and international productions including theatre, music, opera, comedy and visual arts. The venue comprises of a 180 seat auditorium, Children’s Gallery, McKenna Gallery, a contemporary gallery hosting both local national and international artists,  and a café. ',
-          'lat': 53.18202979360638,
-          'long': -6.79446068902007,
+          'lat': 53.13126617143968,
+          'long': -6.74481571326578,
           'logoUrl' : '/assets/imgs/riverBank.jpg',
           'img' : '/assets/imgs/riverBank.jpg',
           'currentDeal' : {
@@ -222,7 +225,21 @@ export class UserServiceProvider{
             'deals' : [{}],
             'area' : 'newbridge',
             'type' : 'entertainment',
-            'foodType' : null
+            'foodType' : null,
+            'customMarker': {
+              'url': '',
+              'scaledSize':{
+                'width': 40,
+                'height': 40
+              }
+            },
+            'customMarkerExp': {
+              'scaledSize' :{
+                'width': 40,
+                'height': 40
+              },
+              'url' : ''
+            }
         }
       ); */
 

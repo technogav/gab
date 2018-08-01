@@ -94,7 +94,7 @@ style="width: 100%; height: 40px; background:white; border-bottom: 1px solid gre
     (centerChange)="trackCenter($event)"
     (idle) = "setNewCenter()"
     #map
-    (mapClick)="mapClick()"
+    (mapClick)="mapClick($event)"
   >
 
   <agm-snazzy-info-window

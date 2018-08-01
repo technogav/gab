@@ -310,7 +310,7 @@ export class HomePage {
         });
 
 
-        this.watch = this.geolocation.watchPosition();
+        /* this.watch = this.geolocation.watchPosition();
         this.watch.subscribe((resp) => {
         // data can be a set of coordinates, or an error (if an error occurred).
         // data.coords.latitude
@@ -323,7 +323,7 @@ export class HomePage {
             this.tempMap = { lat: resp.coords.latitude, lng: resp.coords.longitude }; 
 
         //dont forget to unsubscribe to stop memory leaks
-        });
+        }); */
     }//end constructor
 
     ngOnInit() {
@@ -418,7 +418,8 @@ export class HomePage {
     }
 
     //close info
-    public mapClick(){
+    public mapClick(e){
+        console.log('hd', e);
         if(this.markerInit) this.markerOpen = !this.markerOpen;
     }
 
