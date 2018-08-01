@@ -23,12 +23,12 @@
 
 					<ion-item>
 						<ion-label floating>Email</ion-label>
-						<ion-input id="email" type="email" formControlName='email' required (blur)="validateInput('email')"></ion-input>
+						<ion-input id="email" type="email" formControlName='email' required (ionBlur)="validateInput('email')"></ion-input>
 					</ion-item>
 				
 					<ion-item>
 						<ion-label floating>Password</ion-label>
-						<ion-input type="password" formControlName='password' required (blur)="validateInput('password')"></ion-input>
+						<ion-input type="password" formControlName='password' required (ionBlur)="validateInput('password')"></ion-input>
 					</ion-item>
 				
 				</ion-list>

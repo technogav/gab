@@ -70,10 +70,10 @@ fromPage: string;
 
 	public validateInput(input?){
 		var bool: boolean = true;
-		if(this.loginForm.value[input].length < 6){
+		/* if(this.loginForm.value[input].length < 6){
 			this.createAlert('Invalid ' + input);
 			bool = false;	
-		}
+		} */
 		return bool;
 	}
 

@@ -5,7 +5,7 @@ import { RestModalPage } from '../rest-modal/rest-modal';
 import { } from 'googlemaps';
 import { AgmCoreModule, MapsAPILoader } from '@agm/core';
 import { FormControl } from "@angular/forms";
-import { Geolocation } from '@ionic-native/geolocation';
+import { Geolocation, Geoposition } from '@ionic-native/geolocation';
 import { FilterModalPage } from '../filter-modal/filter-modal';
 import { LoginModalPage } from '../login-modal/login-modal';//if click rest details & logged 
 import { UserServiceProvider } from '../../providers/user-service/user-service';
@@ -364,7 +364,7 @@ export class HomePage {
     }
 
     ionViewDidLeave(){
-        this.watch
+        
     }
 
     infoWindowOpening(){}
@@ -378,6 +378,16 @@ export class HomePage {
                     height: 40
                 }
             }
+    }
+
+    public checkCurrentDeal(item){
+        //console.log(item.data.currentdeal);
+
+        if(item.data.currentDeal.numberAvailable > item.data.currentDeal.numberTaken){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     //track drag center
