@@ -37,7 +37,7 @@ export class HomePage {
                     height: 26
                     }
                 };
-     
+    public today = new Date(2018, 11, 24); 
     public currentLat:any;
     public currentLong:any;    
     public zoomLevel:number = 4;
@@ -308,6 +308,7 @@ export class HomePage {
         }).catch((error) => {
             console.log('Error getting location', error);
         });
+
 
         this.watch = this.geolocation.watchPosition();
         this.watch.subscribe((resp) => {
