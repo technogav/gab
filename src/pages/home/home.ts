@@ -23,6 +23,7 @@ export class HomePage {
 
     public infoWindowOpen: boolean = false;
     public items: Observable<any[]>;
+    private watch: Observable<Geoposition>;
     //public rests= this.GeoService.getRests();
     public rests;
     public searchControl: FormControl;
@@ -36,13 +37,6 @@ export class HomePage {
                     height: 26
                     }
                 };
-    public custom_marker = {
-        url: '../../assets/imgs/custom_marker_examp.png',
-            scaledSize: {
-            width:40,
-            height: 40
-            }
-        }; 
      
     public currentLat:any;
     public currentLong:any;    
@@ -315,17 +309,20 @@ export class HomePage {
             console.log('Error getting location', error);
         });
 
-        /* let watch = this.geolocation.watchPosition();
-        watch.subscribe((data) => {
+        this.watch = this.geolocation.watchPosition();
+        this.watch.subscribe((resp) => {
         // data can be a set of coordinates, or an error (if an error occurred).
         // data.coords.latitude
         // data.coords.longitude
 
-        this.lat3 = data.coords.latitude;
-        this.long3 = data.coords.longitude;
+            this.mapCenterLat = resp.coords.latitude;
+            this.mapCenterLng = resp.coords.longitude;
+            this.currentLocLat = resp.coords.latitude;
+            this.currentLocLng = resp.coords.longitude;
+            this.tempMap = { lat: resp.coords.latitude, lng: resp.coords.longitude }; 
 
         //dont forget to unsubscribe to stop memory leaks
-        }); */
+        });
     }//end constructor
 
     ngOnInit() {
@@ -363,9 +360,11 @@ export class HomePage {
 
 
     ionViewDidEnter(){
-        
         this.rests = this.userService.getMarkers();
+    }
 
+    ionViewDidLeave(){
+        this.watch
     }
 
     infoWindowOpening(){}
