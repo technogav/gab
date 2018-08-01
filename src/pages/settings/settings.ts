@@ -28,6 +28,19 @@ export class SettingsPage {
     /* public user: User */
     ) {
 
+      console.log('settings constructor fired');
+
+  }
+
+  
+
+  ionViewDidEnter(){
+   console.log('settings view entered');
+  }
+
+
+  ionViewWillEnter(){
+   console.log('settings view will enter');
   }
 
   onSubmit(){

@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController,        AlertController } from 'ionic-angular';
-import { BookingModalPage } from '../booking-modal/booking-modal';
+//import { BookingModalPage } from '../booking-modal/booking-modal';
+import { BookingConfirmationPage } from '../booking-confirmation/booking-confirmation';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 import { LoginPage } from '../login/login';
 import { LoginRegisterProvider } from '../../providers/login-register/login-register';
 
-@IonicPage()
 @Component({
   selector: 'page-rest-modal',
   templateUrl: 'rest-modal.html',
@@ -106,15 +106,20 @@ export class RestModalPage {
 
     this.userService.setMarkerRef(this.markerInfo, date, time, this.user);
 
-      let modal = this.modalCtrl.create(BookingModalPage,{
+      /* let modal = this.modalCtrl.create(BookingModalPage,{
         markerInfo : this.markerInfo,
         user: this.user
-      });
+      }); 
   
       modal.onDidDismiss(data => {  
         data?  this.dismiss(data) : console.log('onDidDismiss sent',  data);
       });
     
-      modal.present();  
+      modal.present();*/  
+
+      this.navCtrl.push(BookingConfirmationPage, {
+        markerInfo : this.markerInfo,
+        user: this.user
+      })
     } 
 }

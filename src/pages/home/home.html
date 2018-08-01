@@ -5,42 +5,74 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-   
-  </ion-navbar>  
-  <ion-toolbar style="background:green;">
+    <!-- <ion-toolbar>
     
-    <div float-left id="search_icon_bg">
-        <ion-icon name="search" id="search_icon"></ion-icon>
-    </div>
-
-    <!-- SEARCH BAR -->
-    <input 
-      float-left placeholder="search" 
-      autocorrect="off" 
-      autocapitalize="off" 
-      spellcheck="off" 
-      type="text" 
-      class="form-control" 
-      #search
-      value="" 
-      [formControl]="searchControl"
-      id="search_bar"
-    >
-
-    <!-- FILTER -->
-    <ion-buttons end style="background: white">
+    
+        <div float-left id="search_icon_bg">
+            <ion-icon name="search" id="search_icon"></ion-icon>
+        </div>
+    
+        
+        <input 
+        style="margin:0em;"
+          float-left placeholder="search" 
+          autocorrect="off" 
+          autocapitalize="off" 
+          spellcheck="off" 
+          type="text" 
+          class="form-control" 
+          #search
+          value="" 
+          [formControl]="searchControl"
+          id="search_bar"
+        >
+    
+        
+        <ion-buttons end style="background: white">
+          
+            <button (click)="openFilterModal()" ion-button clear icon-only outline style="margin-left:4px">
+                <ion-icon name="funnel"></ion-icon>
+              </button>
+              <button (click)="resetMap()" ion-button clear icon-only outline>
+                  <ion-icon name="pin"></ion-icon>
+                </button>
+        </ion-buttons>
+        
       
-        <button (click)="openFilterModal()" ion-button clear icon-only outline style="margin-left:4px">
+      </ion-toolbar> -->
+  </ion-navbar>  
+  
+</ion-header>
+
+<div 
+style="width: 100%; height: 40px; background:white; border-bottom: 1px solid grey; position: absolute; top:56px; z-index: 5000;">
+  <div float-left id="search_icon_bg">
+      <ion-icon name="search" id="search_icon"></ion-icon>
+  </div>
+  <input 
+    
+    float-left placeholder="search" 
+    autocorrect="off" 
+    autocapitalize="off" 
+    spellcheck="off" 
+    type="text" 
+    class="form-control" 
+    #search
+    value="" 
+    [formControl]="searchControl"
+    id="search_bar"
+    style="margin:0em; width: 50%; height:38px;">
+
+    
+          
+        <button float-right (click)="openFilterModal()" ion-button clear icon-only style="margin-left:4px">
             <ion-icon name="funnel"></ion-icon>
           </button>
-          <button (click)="resetMap()" ion-button clear icon-only outline>
+          <button float-right (click)="resetMap()" ion-button clear icon-only>
               <ion-icon name="pin"></ion-icon>
             </button>
-    </ion-buttons>
     
-    
-  </ion-toolbar>
-</ion-header>
+  </div>
 
 <ion-content id="content">
   <agm-map 
@@ -54,7 +86,7 @@
     (idle) = "setNewCenter()"
     
     #map
-    (mapClick)="mapClick($event, infoWindow)"
+    (mapClick)="mapClick()"
   >
 
   <agm-snazzy-info-window
@@ -108,7 +140,7 @@
       *ngFor="let item of rests | async; let i = index" 
       [latitude]="item.data.lat" 
       [longitude]="item.data.long"
-      [iconUrl]="custom_marker"
+      [iconUrl]="item.data.customMarker"
       #marker
       (markerClick) = "getMarkerInfo(item)"
     >

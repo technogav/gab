@@ -22,7 +22,7 @@ export class LoginRegisterProvider {
   /* userDeals: Array<any> = []; */
   private _markerId: string;
   user: Item;
-  _user: firebase.firestore.DocumentData = null;
+  _user: firebase.firestore.DocumentData;
 
   constructor(
     public http: HttpClient,
@@ -33,13 +33,14 @@ export class LoginRegisterProvider {
     const settings = {/* your settings... */ timestampsInSnapshots: true};
     firestore.settings(settings);
 
-    this.userCollection = this.afs.collection('users')
+    this.userCollection = this.afs.collection('users');
+
     this.auth.onAuthStateChanged((user)=>{
-      if(user){
-        console.log('yes user');
+      if(user && user.uid){
+        console.log('user.uid set');
         this.setUser(user.uid);     
       }else{
-        console.log('no user');
+        console.log('no user service');
       }
     })
   }
@@ -50,29 +51,13 @@ export class LoginRegisterProvider {
   }
 
   public login(email, password){
-    
     let promise = this.auth.signInWithEmailAndPassword(email, password);
-      promise.then((data)=>{ 
-        if (data.uid){ 
-          
-          this.setUser(data.uid);
-        }
-      })
-    .catch((e)=>{
-      console.log(e.message);
-      
-      alert(e.message);
-    });
-    
-    
+    return promise;  
   }
 
   public logout(){
-    firebase.auth().signOut().then(() => {
-      console.log('signed out');
-      this._user = null;
-    })
-    .catch((e)=> console.log(e.message));
+    var promise = firebase.auth().signOut()
+    return promise;
   }
 
   setUser(id:string){
@@ -85,6 +70,7 @@ export class LoginRegisterProvider {
         console.log('doc exists');
         this._user = data.data();
         this._user['uid'] = id;
+        console.log('isset', this._user);
       }else{
         return;
       } 

@@ -19,7 +19,7 @@ import { UserServiceProvider } from '../providers/user-service/user-service';
 import { GeoServiceProvider } from '../providers/geo-service/geo-service';
 import { RestModalPage } from '../pages/rest-modal/rest-modal';
 import { FilterModalPage } from '../pages/filter-modal/filter-modal';
-import { BookingModalPage } from '../pages/booking-modal/booking-modal';
+
 import { LoginPage } from '../pages/login/login';
 import { LoginModalPage } from '../pages/login-modal/login-modal';
 import { AgmCoreModule } from '@agm/core';
@@ -30,6 +30,7 @@ import { RegisterPage } from '../pages/register/register';
 import { LoginRegisterProvider } from '../providers/login-register/login-register';
 import {HttpClientModule} from '@angular/common/http';
 import { PersonalDetailsPage } from '../pages/personal-details/personal-details';
+import { BookingConfirmationPage } from '../pages/booking-confirmation/booking-confirmation';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { PersonalDetailsPage } from '../pages/personal-details/personal-details'
     ContactPage,
     HomePage,
     RestModalPage,
-    BookingModalPage,
+    BookingConfirmationPage,
     FilterModalPage,
     TabsPage,
     LoginPage,
@@ -76,7 +77,7 @@ import { PersonalDetailsPage } from '../pages/personal-details/personal-details'
     ContactPage,
     HomePage,
     RestModalPage,
-    BookingModalPage,
+    BookingConfirmationPage,
     FilterModalPage,
     TabsPage,
     LoginPage,

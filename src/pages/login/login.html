@@ -2,7 +2,12 @@
 <ion-header>
 
   <ion-navbar color="primary" hideBackButton="true">
-    <ion-title>login</ion-title>
+    <!-- <ion-title text-center>login</ion-title> -->
+    <ion-buttons end>
+        <button ion-button icon-only (click)="cancel()">
+          <ion-icon name="close"></ion-icon>
+        </button>
+      </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -10,45 +15,7 @@
 
 <ion-content padding>
 
-	<!-- 	<ion-list>
-
-				<ion-item>
-					<ion-label floating>Username</ion-label>
-					<ion-input type="text"></ion-input>
-				</ion-item>
-			
-				<ion-item>
-					<ion-label floating>Password</ion-label>
-					<ion-input type="password"></ion-input>
-				</ion-item>
-			
-			</ion-list> -->
-		
-
-<!--   <ion-grid>
-    <ion-row>
-      <ion-col>
-          <ion-list>
-
-              <ion-item>
-                <ion-label floating>Username</ion-label>
-                <ion-input type="text"></ion-input>
-              </ion-item>
-            
-              <ion-item>
-                <ion-label floating>Password</ion-label>
-                <ion-input type="password"></ion-input>
-              </ion-item>
-            
-            </ion-list>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <button  ion-button full>Login</button>
-      </ion-col>
-    </ion-row>
-  </ion-grid> -->
+  <h3 text-center>Login or sign up</h3>
 
   <form (ngSubmit)="login()" [formGroup]="loginForm">
 
@@ -56,21 +23,21 @@
 
 					<ion-item>
 						<ion-label floating>Email</ion-label>
-						<ion-input id="email" type="email" formControlName='email'></ion-input>
+						<ion-input id="email" type="email" formControlName='email' required (blur)="validateInput('email')"></ion-input>
 					</ion-item>
 				
 					<ion-item>
 						<ion-label floating>Password</ion-label>
-						<ion-input type="password" formControlName='password'></ion-input>
+						<ion-input type="password" formControlName='password' required (blur)="validateInput('password')"></ion-input>
 					</ion-item>
 				
 				</ion-list>
 
-				<button  ion-button full>Login</button>
+				<button  ion-button full color="secondary">Login</button>
 
 	</form>
-  <button ion-button full (click)="logout()">Logout</button>
-  <button ion-button full (click)="goRegister()">Register</button>
-  <button ion-button full (click)="cancel()">Cancel</button>
+  
+  <button ion-button full secondary (click)="goRegister()">Sign Up</button>
+  
 
 </ion-content>

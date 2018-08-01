@@ -1,15 +1,21 @@
 page-contact {
     .profile-pic-container{
         background: grey;
-        height:120px;
-        max-height:90px;
-        width:100%;
+        height:160px;
+
+        width:100px;
+        border-radius: 100%;
+        border: 2px solid blue;
         overflow:hidden;
     }
     .change-profile-pic{
         
         width:100%;
         background:#aaa;
+    }
+
+    .editButton{
+        min-width: 40px
     }
 
 }

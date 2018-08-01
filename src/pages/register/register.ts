@@ -5,7 +5,6 @@ import { LoginRegisterProvider } from '../../providers/login-register/login-regi
 import { PersonalDetailsPage } from '../personal-details/personal-details';
 
 
-@IonicPage()
 @Component({
   selector: 'page-register',
   templateUrl: 'register.html',

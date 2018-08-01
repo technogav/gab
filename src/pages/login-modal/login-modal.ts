@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ModalController, ViewController } from 'ionic-angular';
 import { FormControl, FormGroup } from '@angular/forms';
 
-@IonicPage()
 @Component({
   selector: 'page-login-modal',
   templateUrl: 'login-modal.html',

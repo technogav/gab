@@ -47,10 +47,6 @@ export class UserServiceProvider{
   }
 
   setMarkerRef(markerInfo, date, time, user){
-console.log(1, 'A', user);
-
-//get the uid her now!!!!!!!!!!!!!!!!!!!!!!!
-
 
       this.markerDoc = this.afs.doc('markers/' + markerInfo.id);
       this.markerDoc$ = this.markerCollection.valueChanges();
@@ -145,6 +141,19 @@ console.log(1, 'A', user);
 
   }
 
+  public updateUser(userForm, user){
+    console.log('service update', userForm);
+    this.userDoc = this.afs.collection("users").doc(user.uid);
+
+    this.userDoc.update({
+      name: userForm.name,
+      email: userForm.email,
+      phone:userForm.phone,
+      area: userForm.area,
+    })
+    return true;
+  }
+
   getMarkers(){
     return this.testObs;
     //return this.markerCollection$;
@@ -154,7 +163,7 @@ console.log(1, 'A', user);
     return this.markerDoc;
   }
 
-  getDocObs(){//rubbish
+  getDocObs(){
     console.log(this.markerDoc$);
     return this.markerDoc$; 
   }

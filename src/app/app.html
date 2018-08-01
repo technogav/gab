@@ -12,15 +12,14 @@
         </ion-toolbar>
       
         <ion-content>
-          <ion-list>
+          <ion-list style="margin-top:60px">
             
-            <button style="margin-top:50px"menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
+            <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p, index)">
               {{p.title}}
+              
             </button>
-            <button menuClose ion-item (click)="openPage(p)">
-              test1
-            </button>
-            <button menuClose ion-item (click)="logout()">
+            
+            <button *ngIf="!loggedIn" menuClose ion-item (click)="logout()">
               Logout
             </button>
 

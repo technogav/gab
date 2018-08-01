@@ -1,8 +1,10 @@
 <ion-header>
   <ion-navbar color='primary'>
-    <ion-title>
-      Contact
-    </ion-title>
+      <ion-buttons end>
+          <button ion-button icon-only (click)="cancel()">
+            <ion-icon name="close"></ion-icon>
+          </button>
+        </ion-buttons>
   </ion-navbar>
 </ion-header>
 
@@ -13,14 +15,35 @@
       <ion-row>
           <ion-col col-3>
             
-              <button *ngIf="editSave" (click)="toggleEditMode()" ion-button style="min-width: 40px"color="primary" outline>Edit</button>
-              <button *ngIf="!editSave" (click)="toggleEditMode()" ion-button style="min-width: 40px"color="secondary" outline>Save</button>
-              <button *ngIf="!editSave" (click)="toggleEditMode()" ion-button style="min-width: 40px"color="secondary" outline>Upload photo</button>
+              <button 
+                  *ngIf="editSave" 
+                  (click)="toggleEditMode()" 
+                  ion-button 
+                  class="editButton" 
+                  color="primary" 
+                  outline>Edit
+              </button>
+              <button 
+                  *ngIf="!editSave" 
+                  (click)="saveUpdate()" 
+                  ion-button
+                  color="secondary" 
+                  outline
+                  class="editButton">Save
+              </button>
+              <button 
+                  *ngIf="!editSave" 
+                  (click)="uploadPhoto()" 
+                  ion-button
+                  color="secondary" 
+                  outline
+                  class="editButton">Upload photo
+              </button>
               
           </ion-col>
-          <ion-col col-5> </ion-col>
-          <ion-col col-4 class="profile-pic-container"> 
-            <img src="/assets/imgs/joker.jpg" alt="">
+          <ion-col col-3> </ion-col>
+          <ion-col col-6 class="profile-pic-container"> 
+            <img src="/assets/imgs/joker.png" alt="">
             
           </ion-col>
 
@@ -34,27 +57,43 @@
             
               
               <ion-item>
-                  <ion-label floating for="name" >Name</ion-label>
-                <ion-input type="text" formControlName="name"></ion-input>
+                <ion-label floating for="name" >Name</ion-label>
+                <ion-input 
+                  [disabled]="!isEditing ? '' : null" 
+                  type="text" 
+                  formControlName="name">
+                </ion-input>
               </ion-item>
             
               <ion-item>
-                  <ion-label floating for="area">Area</ion-label>
-                <ion-input type="text" formControlName="area"></ion-input>
+                <ion-label floating for="area">Area</ion-label>
+                <ion-input 
+                  [disabled]="!isEditing ? '' : null"
+                  type="text" 
+                  formControlName="area">
+              </ion-input>
               </ion-item>
         
               <ion-item>
-                  <ion-label floating for="email" >Email</ion-label>
-                <ion-input type="text" formControlName="email" ></ion-input>
+                <ion-label floating for="email" >Email</ion-label>
+                <ion-input 
+                  [disabled]="true ? '' : null" 
+                  type="text" 
+                  formControlName="email"
+                  (click)="editEmail()" ></ion-input>
               </ion-item>
             
               <ion-item>
-                  <ion-label floating for="phone" >Phone Number</ion-label>
-                <ion-input type="text" formControlName="phone"></ion-input>
+                <ion-label floating for="phone" >Phone Number</ion-label>
+                <ion-input 
+                [disabled]="!isEditing ? '' : null" 
+                type="text" 
+                formControlName="phone"></ion-input>
               </ion-item>
 </form>
           
             </ion-list>
+            <button ion-button full (click)="logout()">Logout</button>
           
   
 </ion-content>

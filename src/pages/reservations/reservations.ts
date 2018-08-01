@@ -25,7 +25,8 @@ export class ReservationsPage {
   public today: Date;
   public currentTab: boolean = true;
   public archivedTab: boolean = false;
-  public currentArchived: boolean = true;;
+  public currentArchived: boolean = true;
+  
 
   constructor(
     public navCtrl: NavController,
@@ -34,8 +35,18 @@ export class ReservationsPage {
     public loginRegisterService: LoginRegisterProvider,
     public modalCtrl: ModalController
     ){
-    
-    console.log(this.user, 77);
+      console.log('reservations constructor fired');
+      
+
+      /* if(!this.user){
+        alert('no user. Please log in');
+        this.navCtrl.push(LoginPage);
+        //this.openLoginModal();
+  
+      }else{
+        this.myDeals = this.user.myDeals;
+        this.today = new Date();
+      } */
     
   }
 
@@ -49,18 +60,26 @@ export class ReservationsPage {
   } */
 
   ionViewWillEnter(){
-    this.user = this.loginRegisterService.getUser();
+    console.log('reservations will enter fired');
+    if(this.loginRegisterService._user) this.user = this.loginRegisterService._user; 
+  }
 
-    if(!this.user){
-      alert('no user. Please log in');
-      this.navCtrl.push(LoginPage);
-      //this.openLoginModal();
 
+  ionViewDidEnter(){  
+    if(!this.loginRegisterService._user){  
+      this.navCtrl.push(LoginPage,{
+        page: 'reservationsPage'
+      });
     }else{
       this.myDeals = this.user.myDeals;
       this.today = new Date();
-    }
+    }   
   }
+
+  public cancel(){
+    this.navCtrl.parent.select(0);
+  }
+
 
   //show archived deals
   public showArchived(){
@@ -104,7 +123,7 @@ export class ReservationsPage {
     }  
   }
  
-  public onSubmit(){
+  /* public onSubmit(){
     this.userService.saveUser(this.userForm.value);
-  }
+  } */
 }

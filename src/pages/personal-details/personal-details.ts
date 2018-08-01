@@ -4,7 +4,6 @@ import { FormGroup, FormControl } from '../../../node_modules/@angular/forms';
 import { LoginRegisterProvider } from '../../providers/login-register/login-register';
 import { LoginPage } from '../login/login';
 
-@IonicPage()
 @Component({
   selector: 'page-personal-details',
   templateUrl: 'personal-details.html',

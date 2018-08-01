@@ -32,8 +32,8 @@ export class HomePage {
     public icon = {
                 url: '../../assets/imgs/locationDot.gif',
                     scaledSize: {
-                    width:28,
-                    height: 28
+                    width:26,
+                    height: 26
                     }
                 };
     public custom_marker = {
@@ -43,7 +43,7 @@ export class HomePage {
             height: 40
             }
         }; 
-        
+     
     public currentLat:any;
     public currentLong:any;    
     public zoomLevel:number = 4;
@@ -292,19 +292,8 @@ export class HomePage {
     currentLocLng: number;
     tempMap : { lat: number, lng:number };
     markerId: string;
+    private markerInit:boolean = false;
    
-    infoWindowOpening(){}
-
-    getMarker(){
-        return {
-            url: '../../assets/imgs/custom_marker_examp.png',
-                scaledSize: {
-                width:40,
-                height: 40
-                }
-            }
-    }
-
     constructor(
         public agm:AgmCoreModule,
         public alertCtrl: AlertController,
@@ -312,11 +301,9 @@ export class HomePage {
         private geolocation: Geolocation,
         private mapsAPILoader: MapsAPILoader,
         private ngZone: NgZone,
-        private userService : UserServiceProvider
-       
-        ){ 
+        private userService : UserServiceProvider 
+        ){    
         
-        this.rests = userService.getMarkers();
         this.geolocation.getCurrentPosition()
             .then((resp) => {
                 this.mapCenterLat = resp.coords.latitude;
@@ -374,6 +361,26 @@ export class HomePage {
         });
     }//ngOnit
 
+
+    ionViewDidEnter(){
+        
+        this.rests = this.userService.getMarkers();
+
+    }
+
+    infoWindowOpening(){}
+
+    getMarker(i){
+        
+        return {
+            url: '../../assets/imgs/custom_marker_examp.png',
+                scaledSize: {
+                    width:40,
+                    height: 40
+                }
+            }
+    }
+
     //track drag center
     public trackCenter(event){
         if(event){
@@ -391,6 +398,7 @@ export class HomePage {
     }
 
     public getMarkerInfo(item){ 
+        this.markerInit = true;
         this.userService.setMarkerId(item.id)
         this.markerId = item.id;
         this.item = item;
@@ -400,9 +408,8 @@ export class HomePage {
     }
 
     //close info
-    public mapClick(ev){
-        console.log(ev);
-        this.markerOpen = !this.markerOpen;
+    public mapClick(){
+        if(this.markerInit) this.markerOpen = !this.markerOpen;
     }
 
     //if not logged in open login modal
@@ -450,13 +457,12 @@ export class HomePage {
 
     openModal(markerInfo) {
         let modal = this.modalCtrl.create(RestModalPage, { 
-            markerInfo : markerInfo,
-           
-        } );
+            markerInfo : markerInfo  
+        });
 
         modal.onDidDismiss(data => {
 
-        this.infoWindowOpen = !this.infoWindowOpen    
+            this.infoWindowOpen = !this.infoWindowOpen    
         });
         modal.present();
     }

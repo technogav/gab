@@ -3,8 +3,6 @@ import { IonicPage, NavController, NavParams, ModalController, ViewController, A
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserServiceProvider } from '../../providers/user-service/user-service';
 
-
-@IonicPage()
 @Component({
   selector: 'page-filter-modal',
   templateUrl: 'filter-modal.html',
@@ -54,9 +52,6 @@ export class FilterModalPage {
   }
 
   onSubmit(){
-
-    console.log("here");
-
     this.userService.reservation(this.filterSearchForm.value);
   }
 
